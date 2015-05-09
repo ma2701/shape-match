@@ -1,3 +1,10 @@
 package com
 
-case class Square(ui:UserInterface) extends Shape
+import java.awt.{Graphics, Point}
+
+case class Square(location:Point = new Point) extends Shape {
+
+    override def draw(graphics: Graphics): Unit = Unit
+
+}
+

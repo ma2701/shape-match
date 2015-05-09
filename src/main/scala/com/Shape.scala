@@ -1,3 +1,7 @@
 package com
 
-abstract class Shape
+import java.awt.Graphics
+
+abstract class Shape {
+    def draw(graphics:Graphics):Unit
+}
