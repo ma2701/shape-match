@@ -23,4 +23,17 @@ class RandomNumberGeneratorTest extends FunSuite {
 
         assert(randomNumbers.forall { i => range.min <= i && i <= range.max })
     }
+
+    test("given a rng then call to nextNDistinct will return n distinct random numbers with no repetition") {
+        val range = 1 to 10
+        val n = 10
+
+        val randomNumbers = RandomNumberGenerator.nextNDistinct(n, range)
+
+        assert(n == randomNumbers.size)
+
+        assert(randomNumbers.forall { i => range.min <= i && i <= range.max })
+
+        1 to 10 foreach(randomNumbers.contains)
+    }
 }

@@ -6,5 +6,7 @@ case class Square(location:Point = new Point) extends Shape {
 
     override def draw(graphics: Graphics): Unit = Unit
 
+    override def toString:String = s"Square at X:${location.x} Y:${location.y}"
+
 }
 
