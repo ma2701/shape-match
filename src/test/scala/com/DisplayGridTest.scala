@@ -28,7 +28,7 @@ class DisplayGridTest extends FunSuite {
 
         val gridInStringForm = grid.toString
 
-        assert( GRID_ROW_CNT * GRID_COL_CNT  === "width".r.findAllMatchIn(gridInStringForm).length)
+        assert( GRID_ROW_CNT * GRID_COL_CNT  === "x:".r.findAllMatchIn(gridInStringForm).length)
     }
 
     test("given display of 10x10 then each cell is 1x1") {
@@ -39,9 +39,12 @@ class DisplayGridTest extends FunSuite {
 
         grid.cells.foreach(row => assert(GRID_COL_CNT === row.size ) )
 
-        grid.cells.foreach(row => row.foreach(
-            col => assert(col.dimension.width == 1 && col.dimension.height == 1 ))
-        )
+        assertResult(new Point(0,0)) {
+            grid.cells(0)(0).topLeft
+        }
+        assertResult(new Point(5,5)) {
+            grid.cells(5)(5).topLeft
+        }
     }
 
     test("given display of then translate index to row/col will return given index to a col/row tuple") {

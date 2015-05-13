@@ -1,7 +1,9 @@
 package com
 
-import java.awt.Graphics
+import java.awt.{Point, Graphics}
 
-abstract class Shape {
-    def draw(graphics:Graphics):Unit
+abstract class Shape(val topLeft: Point) {
+    def draw(graphics: Graphics): Unit
+
+    def moveTo(loc: Point): Shape
 }

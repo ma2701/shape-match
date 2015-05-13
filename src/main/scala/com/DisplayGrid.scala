@@ -1,6 +1,6 @@
 package com
 
-import java.awt.Dimension
+import java.awt.Point
 
 import com.util.random.RandomNumberGenerator
 
@@ -36,14 +36,12 @@ class DisplayGrid(window: DisplayWindow, shapes: Seq[Shape]) {
         gridCells
     }
 
-    private def cellCreator(dimension: Dimension): Cell = new Cell(dimension)
-
     private def generateGridOfEmptyCells: Seq[Seq[Cell]] = {
         val rows = (window.dimension.width / GRID_ROW_CNT)
         val cols = (window.dimension.height / GRID_COL_CNT)
 
-        Seq.fill(GRID_ROW_CNT, GRID_COL_CNT) {
-            cellCreator(new Dimension(rows, cols))
+        Seq.tabulate(GRID_ROW_CNT, GRID_COL_CNT) { (r, c) =>
+            new Cell( new Point(r * rows, c * cols) )
         }
     }
 
@@ -51,14 +49,14 @@ class DisplayGrid(window: DisplayWindow, shapes: Seq[Shape]) {
         RandomNumberGenerator.nextNDistinct(shapes.size, 0 to ((GRID_COL_CNT * GRID_ROW_CNT) - 1))
     }
 
-    class Cell(val dimension: Dimension) {
+    class Cell(val topLeft: Point) {
         private[this] var shape: Option[Shape] = None
 
         def setShape(shape: Shape): Unit = this.shape = Some(shape)
         def getShape: Option[Shape]      = this.shape
 
         override def toString: String =
-            s"width: ${dimension.width} height: ${dimension.height}. Shape: " + ( if(shape !=null ) s"${shape}" else " - ")
+            s"x: ${topLeft.x} y: ${topLeft.y}. Shape: " + ( if(shape !=null ) s"${shape}" else " - ")
     }
 
     override def toString: String =

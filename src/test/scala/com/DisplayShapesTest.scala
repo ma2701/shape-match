@@ -26,5 +26,26 @@ class DisplayShapesTest extends FunSuite {
         assert(shapes.get("left").get.size == LevelOne.shapeCount)
     }
 
+    test("given display shape object when true then createCopy returns a copy of selected image with ONE image changed") {
+        val shapes = new DisplayShapes()
+        val shouldModifyOneImage = true
+
+        val originalSelectedShapes = Seq(Square())
+
+        val copiedShapes = shapes.copySelectedImage(originalSelectedShapes, shouldModifyOneImage)
+
+        assert( copiedShapes.size === originalSelectedShapes.size )
+    }
+
+    test("given display shape object when true then replaced image has the same location as the shape it is replacing") {
+        val shapes = new DisplayShapes()
+        val shouldModifyOneImage = true
+
+        val originalSelectedShapes = Seq(Square())
+
+        val copiedShapes = shapes.copySelectedImage(originalSelectedShapes, shouldModifyOneImage)
+
+        assert( copiedShapes(0).topLeft === originalSelectedShapes(0).topLeft)
+    }
 
 }

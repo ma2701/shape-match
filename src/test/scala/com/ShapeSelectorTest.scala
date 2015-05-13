@@ -12,6 +12,4 @@ class ShapeSelectorTest extends FunSuite {
       }
     }
   }
-
-
 }
