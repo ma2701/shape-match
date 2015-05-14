@@ -1,19 +1,19 @@
 package com
 
-import com.util.random.RandomNumberGenerator
+import com.util.random.{RandomBoolean, RandomNumberGenerator}
 
 class DisplayShapes {
     def getShapes(currentLevel: GameLevel): Map[String, Seq[Shape]] = {
 
         val shapesOnLeft   = ShapeSelector.select(currentLevel)
-        val shapesOnRight  = shapesOnLeft
+        val shapesOnRight  = copySelectedImage(shapesOnLeft, RandomBoolean.nextRandomTrueWithOneOutOfNChance(3))
 
         Map("left" -> shapesOnLeft, "right" -> shapesOnRight)
     }
 
-    def copySelectedImage(shapes: Seq[Shape] , b: Boolean):Seq[Shape] =  {
+    def copySelectedImage(shapes: Seq[Shape] , shouldAlterShapes: Boolean):Seq[Shape] =  {
 
-        if(b) {
+        if(shouldAlterShapes) {
 
             val index = RandomNumberGenerator.next(0 to (shapes.size - 1))
             val toBeReplaced = shapes(index)
