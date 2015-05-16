@@ -32,7 +32,7 @@ class DisplayShapesTest extends FunSuite {
 
         val originalSelectedShapes = Seq(Square())
 
-        val copiedShapes = shapes.copySelectedImage(originalSelectedShapes, shouldModifyOneImage)
+        val copiedShapes = shapes.maybeAlterShapes(originalSelectedShapes, shouldModifyOneImage)
 
         assert( copiedShapes.size === originalSelectedShapes.size )
     }
@@ -43,7 +43,7 @@ class DisplayShapesTest extends FunSuite {
 
         val originalSelectedShapes = Seq(Square())
 
-        val copiedShapes = shapes.copySelectedImage(originalSelectedShapes, shouldModifyOneImage)
+        val copiedShapes = shapes.maybeAlterShapes(originalSelectedShapes, shouldModifyOneImage)
 
         assert( copiedShapes(0).topLeft === originalSelectedShapes(0).topLeft)
     }

@@ -3,15 +3,16 @@ package com
 import com.util.random.{RandomBoolean, RandomNumberGenerator}
 
 class DisplayShapes {
+
     def getShapes(currentLevel: GameLevel): Map[String, Seq[Shape]] = {
 
         val shapesOnLeft   = ShapeSelector.select(currentLevel)
-        val shapesOnRight  = copySelectedImage(shapesOnLeft, RandomBoolean.nextRandomTrueWithOneOutOfNChance(3))
+        val shapesOnRight  = maybeAlterShapes(shapesOnLeft, RandomBoolean.nextRandomTrueWithOneOutOfNChance(3))
 
         Map("left" -> shapesOnLeft, "right" -> shapesOnRight)
     }
 
-    def copySelectedImage(shapes: Seq[Shape] , shouldAlterShapes: Boolean):Seq[Shape] =  {
+    def maybeAlterShapes(shapes: Seq[Shape] , shouldAlterShapes: Boolean):Seq[Shape] =  {
 
         if(shouldAlterShapes) {
 
@@ -21,7 +22,10 @@ class DisplayShapes {
             val replacement  = ShapeSelector.selectOneRandomShape.moveTo(toBeReplaced.topLeft)
 
             shapes.updated(index, replacement)
+
+        } else {
+            shapes
         }
-        else shapes
     }
 }
+

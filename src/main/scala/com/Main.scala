@@ -13,5 +13,7 @@ object Main extends App {
                 frame.setVisible(true)
             }
         })
+
+        println("after teh frame creation....")
     }
 }
