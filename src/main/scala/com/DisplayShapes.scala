@@ -1,30 +1,23 @@
 package com
 
+import com.shape.Shape
 import com.util.random.{RandomBoolean, RandomNumberGenerator}
+import DisplayGrid._
 
 object DisplayShapes {
 
-    def getShapes(currentLevel: GameLevel): DisplayShapesPair  = {
+    def getShapes(currentLevel: GameLevel, displayWindow:DisplayWindow) : DisplayShapesPair  = {
+        val shapes: Seq[Shape] = ShapeSelector.select(currentLevel)
 
-        val shapesOnLeft   = ShapeSelector.select(currentLevel)
-        val shapesOnRight  = maybeAlterShapes(shapesOnLeft, RandomBoolean.nextRandomTrueWithOneOutOfNChance(3))
+        val slots = getSlotIndicesToPutShapesIn(shapes)
+
+        val shapesOnLeft   = new DisplayGrid(displayWindow, shapes, slots)
+        val shapesOnRight  = shapesOnLeft.maybeAlterShapes()
 
         DisplayShapesPair(shapesOnLeft, shapesOnRight)
     }
 
-    def maybeAlterShapes(shapes: Seq[Shape] , shouldAlterShapes: Boolean):Seq[Shape] =  {
-
-        if(shouldAlterShapes) {
-
-            val index = RandomNumberGenerator.next(0 to (shapes.size - 1))
-            val toBeReplaced = shapes(index)
-
-            val replacement  = ShapeSelector.selectOneRandomShape.moveTo(toBeReplaced.topLeft)
-
-            shapes.updated(index, replacement)
-
-        } else {
-            shapes
-        }
+    def getSlotIndicesToPutShapesIn(shapes: Seq[Shape]): Set[Int] = {
+        RandomNumberGenerator.nextNDistinct(shapes.size, 0 to ((GRID_COL_CNT * GRID_ROW_CNT) - 1))
     }
 }

@@ -1,16 +1,17 @@
 package com.ui
 
+import java.awt.Dimension
 import java.awt.event.{ActionEvent, ActionListener}
 import javax.swing.JFrame
 
-import com.{GameLogic, UserInput}
+import com._
 import org.jdesktop.layout.GroupLayout
 
 class ShapeMatchFrame extends JFrame with Runnable with ActionListener {
 
     private[this] val uiElements            = UIElements.default(this)
     private[this] var gameThread: Thread    = _
-    private[this] var gameLogic : GameLogic = new GameLogic
+    private[this] var gameLogic : GameLogic = _
 
     initComponents
 
@@ -24,10 +25,15 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener {
     override def run(): Unit = mainGameLoop
 
     private def mainGameLoop: Unit = {
+        val displayWindowDimension= new Dimension(uiElements.leftPanel.getWidth, uiElements.leftPanel.getHeight)
 
-        uiElements.rightPanel.drawShapes(gameLogic.shapesPair.right)
+        val displayWindow = new DisplayWindow(displayWindowDimension)
 
-        uiElements.leftPanel.drawShapes(gameLogic.shapesPair.left)
+        gameLogic = new GameLogic(LevelOne, DisplayShapes.getShapes(LevelOne,displayWindow), displayWindow)
+
+        uiElements.rightPanel.drawShapes(gameLogic.shapesPair.rightGrid)
+
+        uiElements.leftPanel.drawShapes(gameLogic.shapesPair.leftGrid)
 
         if (gameLogic.isGameOver)
             System.exit(0) // temp

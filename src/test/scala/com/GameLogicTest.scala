@@ -1,24 +1,35 @@
 package com
 
+import java.awt.Dimension
+
+import com.shape.{HollowCircle, HollowSquare}
 import org.scalatest.FunSuite
 import org.scalatest.mock.MockitoSugar
 
 class GameLogicTest extends FunSuite with MockitoSugar {
 
-    test("can create instance") {
-        val game = new GameLogic
-    }
+    val gameLevelOne       = LevelOne
+    val displayWindow      = new DisplayWindow(new Dimension(10,10))
+
+    val shapes             = Seq(new HollowSquare, new HollowSquare)
+    val nonMatchingShapes  = Seq(new HollowSquare, new HollowCircle())
+
+    val slots         = DisplayShapes.getSlotIndicesToPutShapesIn(shapes)
+
+    val matchingDisplayShapesPair = new DisplayShapesPair(leftGrid = new DisplayGrid(displayWindow, shapes, slots),
+                                                  rightGrid = new DisplayGrid(displayWindow, shapes, slots))
+
+    val nonMatchingDisplayShapesPair = new DisplayShapesPair(leftGrid = new DisplayGrid(displayWindow, shapes, slots),
+                                                  rightGrid = new DisplayGrid(displayWindow, nonMatchingShapes, slots))
 
     test("given a game then start it") {
-        val game = new GameLogic().start
+        val game = new GameLogic(gameLevelOne,matchingDisplayShapesPair, displayWindow).start
     }
 
     test("given a game when user selects match and left and right match then isUserInputCorrect returns GameLogic with level increased") {
-        val shapes   =  DisplayShapesPair(Seq(new Square), Seq(new Square))
-
         val userInput = Match
 
-        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
+        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).isUserInputCorrect(userInput)
 
         assert (gl.currentLevel == LevelTwo)
     }
@@ -26,9 +37,7 @@ class GameLogicTest extends FunSuite with MockitoSugar {
     test("given a game when user selects mismatch and left and right match then game remains in the current level") {
         val userInput = Mismatch
 
-        val shapes   =  DisplayShapesPair(Seq(new Square), Seq(new Square))
-
-        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
+        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).isUserInputCorrect(userInput)
 
         assert (gl.currentLevel == LevelOne)
     }
@@ -36,43 +45,27 @@ class GameLogicTest extends FunSuite with MockitoSugar {
     test("given a game when user selects mismatch and left and right shapes do not match then move to new level") {
         val userInput = Mismatch
 
-        val shapes   =  DisplayShapesPair(Seq(new Circle), Seq(new Square))
-
-        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
-
-        assert (gl.currentLevel == LevelTwo)
-    }
-
-    test("given a game when user selects mismatch and either left or right shape is missing then move to next level") {
-        val userInput = Mismatch
-
-        val rightShape= Seq(new Square)
-
-        val shapes   =  DisplayShapesPair(Nil, rightShape)
-
-        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
+        val gl = new GameLogic(gameLevelOne, nonMatchingDisplayShapesPair, displayWindow).isUserInputCorrect(userInput)
 
         assert (gl.currentLevel == LevelTwo)
     }
 
     test("given a game when user selects correctly then the next level has shape count corresponding to the level") {
-        val shapes   =  DisplayShapesPair(Seq(new Square), Seq(new Square))
-
         val userInput = Match
 
-        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
+        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).isUserInputCorrect(userInput)
 
-        assert (gl.shapesPair.left.size == LevelTwo.shapeCount)
-        assert (gl.shapesPair.right.size == LevelTwo.shapeCount)
+        assert (gl.shapesPair.leftGrid.shapesInGrid  === LevelTwo.shapeCount)
+        assert (gl.shapesPair.rightGrid.shapesInGrid === LevelTwo.shapeCount)
     }
 
     test("given a game when game is not over then isGameOver returns false") {
         assertResult(false){
-            new GameLogic().isGameOver
+            new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).isGameOver
         }
     }
 
     test("given a game when no next level exist then isGameOver returns true") {
-        assert(new GameLogic(LevelSeven).isGameOver)
+        assert(new GameLogic(LevelSeven, matchingDisplayShapesPair, displayWindow).isGameOver)
     }
 }

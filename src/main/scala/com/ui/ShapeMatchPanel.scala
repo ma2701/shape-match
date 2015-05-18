@@ -3,18 +3,20 @@ package com.ui
 import java.awt.Graphics
 import javax.swing.JPanel
 
-import com.Shape
+import com.{Cell, DisplayGrid}
 
 abstract class ShapeMatchPanel extends JPanel {
 
-    protected[this] var shapesToBeDisplayed: Seq[Shape] = Nil
+    protected[this] var shapesToBeDisplayed: Seq[Seq[Cell]] = Nil
 
     initComponents
 
     protected def initComponents:Unit
 
-    def drawShapes(shapes: Seq[Shape]):Unit = {
-        this.shapesToBeDisplayed = shapes
+    def drawShapes(displayGrid: DisplayGrid):Unit = {
+        shapesToBeDisplayed = displayGrid.cells
+
+        println(shapesToBeDisplayed)
 
         this.repaint()
     }
@@ -22,6 +24,12 @@ abstract class ShapeMatchPanel extends JPanel {
     override def paintComponent(g: Graphics): Unit = {
         super.paintComponent(g)
 
-        shapesToBeDisplayed.foreach( _.draw(g))
+        shapesToBeDisplayed.foreach (
+            row =>
+                row.foreach(
+                    col =>
+                        col.shape.map(_.draw(g))
+            )
+        )
     }
 }
