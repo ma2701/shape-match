@@ -16,8 +16,6 @@ abstract class ShapeMatchPanel extends JPanel {
     def drawShapes(displayGrid: DisplayGrid):Unit = {
         shapesToBeDisplayed = displayGrid.cells
 
-        println(shapesToBeDisplayed)
-
         this.repaint()
     }
 

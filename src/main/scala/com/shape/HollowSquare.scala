@@ -32,3 +32,38 @@ case class HollowTriangle(location:Point = new Point) extends Shape(location) {
     override def moveTo(loc: Point): Shape = HollowTriangle(loc)
 }
 
+case class SolidTriangle(location:Point = new Point) extends Shape(location) {
+    override def shapeImageName: String = "/solidTriangle.png"
+
+    override def moveTo(loc: Point): Shape = SolidTriangle(loc)
+}
+
+case class HollowCross(location:Point = new Point) extends Shape(location) {
+    override def shapeImageName: String = "/hollowCross.png"
+
+    override def moveTo(loc: Point): Shape = HollowCross(loc)
+}
+
+case class SolidCross(location:Point = new Point) extends Shape(location) {
+    override def shapeImageName: String = "/solidCross.png"
+
+    override def moveTo(loc: Point): Shape = SolidCross(loc)
+}
+case class ReverseL(location:Point = new Point) extends Shape(location) {
+    override def shapeImageName: String = "/reverseL.png"
+
+    override def moveTo(loc: Point): Shape = ReverseL(loc)
+}
+
+case class InvertedL(location:Point = new Point) extends Shape(location) {
+    override def shapeImageName: String = "/invertedL.png"
+
+    override def moveTo(loc: Point): Shape = InvertedL(loc)
+}
+
+case class FourSquare(location:Point = new Point) extends Shape(location) {
+    override def shapeImageName: String = "/fourSquare.png"
+
+    override def moveTo(loc: Point): Shape = FourSquare(loc)
+}
+

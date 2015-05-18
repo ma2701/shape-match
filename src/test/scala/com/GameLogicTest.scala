@@ -29,7 +29,7 @@ class GameLogicTest extends FunSuite with MockitoSugar {
     test("given a game when user selects match and left and right match then isUserInputCorrect returns GameLogic with level increased") {
         val userInput = Match
 
-        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).isUserInputCorrect(userInput)
+        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).evaluateUserInput(userInput)
 
         assert (gl.currentLevel == LevelTwo)
     }
@@ -37,7 +37,7 @@ class GameLogicTest extends FunSuite with MockitoSugar {
     test("given a game when user selects mismatch and left and right match then game remains in the current level") {
         val userInput = Mismatch
 
-        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).isUserInputCorrect(userInput)
+        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).evaluateUserInput(userInput)
 
         assert (gl.currentLevel == LevelOne)
     }
@@ -45,7 +45,7 @@ class GameLogicTest extends FunSuite with MockitoSugar {
     test("given a game when user selects mismatch and left and right shapes do not match then move to new level") {
         val userInput = Mismatch
 
-        val gl = new GameLogic(gameLevelOne, nonMatchingDisplayShapesPair, displayWindow).isUserInputCorrect(userInput)
+        val gl = new GameLogic(gameLevelOne, nonMatchingDisplayShapesPair, displayWindow).evaluateUserInput(userInput)
 
         assert (gl.currentLevel == LevelTwo)
     }
@@ -53,7 +53,7 @@ class GameLogicTest extends FunSuite with MockitoSugar {
     test("given a game when user selects correctly then the next level has shape count corresponding to the level") {
         val userInput = Match
 
-        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).isUserInputCorrect(userInput)
+        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).evaluateUserInput(userInput)
 
         assert (gl.shapesPair.leftGrid.shapesInGrid  === LevelTwo.shapeCount)
         assert (gl.shapesPair.rightGrid.shapesInGrid === LevelTwo.shapeCount)

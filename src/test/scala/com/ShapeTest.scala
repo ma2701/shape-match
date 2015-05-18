@@ -42,4 +42,11 @@ class ShapeTest extends FunSuite {
         assert(collection1 == collection2)
     }
 
+    test("given a square then moveTo moves the square to the location indicated") {
+        val square = new HollowSquare(new Point(10,20))
+        val newLocation = new Point
+
+        assert(newLocation == square.moveTo(newLocation).topLeft)
+    }
+
 }

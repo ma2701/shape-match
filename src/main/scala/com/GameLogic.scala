@@ -1,10 +1,10 @@
 package com
 
-class GameLogic(val currentLevel: GameLevel = LevelOne,
-                val shapesPair  : DisplayShapesPair,
-                val displayWindow : DisplayWindow ) {
+case class GameLogic(   currentLevel: GameLevel = LevelOne,
+                        shapesPair  : DisplayShapesPair,
+                        displayWindow : DisplayWindow ) {
 
-    def isUserInputCorrect(userInput: UserInput): GameLogic =
+    def evaluateUserInput(userInput: UserInput): GameLogic =
         userInput match {
             case Match =>
                 gameLogicBasedOnUserSelection(shapesPair.leftGrid.isEqual(shapesPair.rightGrid))

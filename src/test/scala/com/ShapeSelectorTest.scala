@@ -1,5 +1,6 @@
 package com
 
+import com.shape.ShapeSelector
 import org.scalatest.FunSuite
 
 class ShapeSelectorTest extends FunSuite {

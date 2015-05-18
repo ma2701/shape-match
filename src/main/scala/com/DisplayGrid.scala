@@ -2,9 +2,9 @@ package com
 
 import java.awt.Point
 
-import com.shape.Shape
+import com.shape.{Shape, ShapeSelector}
 import com.util.random.RandomBoolean._
-import com.util.random.{RandomBoolean, RandomNumberGenerator}
+import com.util.random.RandomNumberGenerator
 
 
 object DisplayGrid {
@@ -57,14 +57,20 @@ class DisplayGrid(window: DisplayWindow, shapes: Seq[Shape], slots: Set[Int] ) {
             .find{
                 (tuple) => tuple._2 == toIndex((r, c))
             }.map {
-                shapeWithPosTuple => new Cell( new Point(r * rows, c * cols), Some(shapeWithPosTuple._1))
+                shapeWithPosTuple =>
+                    val cellPosition= new Point(r * rows, c * cols)
+                    new Cell( cellPosition, Some(shapeWithPosTuple._1.moveTo(cellPosition)))
             }.getOrElse(new Cell( new Point(r * rows, c * cols) ))
         }
     }
 
     override def toString: String =
         gridCells.collect { case row =>
-            row.collect { case col => col.toString() + " " }
+            row.collect { case col =>
+                if(col.shape.isDefined)
+                    col.shape.get.toString() + " "
+                else ""
+            }
         }.mkString("\n,")
 
 }

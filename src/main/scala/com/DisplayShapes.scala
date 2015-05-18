@@ -1,13 +1,13 @@
 package com
 
-import com.shape.Shape
+import com.shape.{ShapeSelector, Shape}
 import com.util.random.{RandomBoolean, RandomNumberGenerator}
 import DisplayGrid._
 
 object DisplayShapes {
 
     def getShapes(currentLevel: GameLevel, displayWindow:DisplayWindow) : DisplayShapesPair  = {
-        val shapes: Seq[Shape] = ShapeSelector.select(currentLevel)
+        val shapes = ShapeSelector.select(currentLevel)
 
         val slots = getSlotIndicesToPutShapesIn(shapes)
 

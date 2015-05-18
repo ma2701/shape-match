@@ -1,16 +1,22 @@
-package com
+package com.shape
 
-import com.shape._
+import com.GameLevel
 import com.util.random.RandomNumberGenerator
 
 object ShapeSelector {
 
     private val shapes = Seq(
+        new ReverseL,
         new HollowSquare,
         new SolidSquare,
         new HollowCircle,
         new SolidCircle,
-        new HollowTriangle
+        new HollowTriangle,
+        new SolidTriangle,
+        new HollowCross,
+        new SolidCross,
+        new InvertedL,
+        new FourSquare
     )
 
     def select(level: GameLevel): Seq[Shape] =

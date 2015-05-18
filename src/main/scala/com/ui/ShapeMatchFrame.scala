@@ -1,6 +1,5 @@
 package com.ui
 
-import java.awt.Dimension
 import java.awt.event.{ActionEvent, ActionListener}
 import javax.swing.JFrame
 
@@ -25,11 +24,10 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener {
     override def run(): Unit = mainGameLoop
 
     private def mainGameLoop: Unit = {
-        val displayWindowDimension= new Dimension(uiElements.leftPanel.getWidth, uiElements.leftPanel.getHeight)
+        val displayWindow =uiElements.displayWindow
 
-        val displayWindow = new DisplayWindow(displayWindowDimension)
-
-        gameLogic = new GameLogic(LevelOne, DisplayShapes.getShapes(LevelOne,displayWindow), displayWindow)
+        if(gameLogic == null)
+            gameLogic = GameLogic(LevelOne, DisplayShapes.getShapes(LevelOne,displayWindow),displayWindow )
 
         uiElements.rightPanel.drawShapes(gameLogic.shapesPair.rightGrid)
 
@@ -40,9 +38,12 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener {
     }
 
     override def actionPerformed(e: ActionEvent): Unit = {
+
         val userInput = UserInput.fromString(e.getActionCommand)
 
-        gameLogic     = gameLogic.isUserInputCorrect(userInput)
+        gameLogic     = gameLogic.evaluateUserInput(userInput).copy(displayWindow = uiElements.displayWindow)
+
+        uiElements.timerPanel.setCurrentGameLevel(gameLogic.currentLevel).updateGameLevelText
 
         mainGameLoop
     }
