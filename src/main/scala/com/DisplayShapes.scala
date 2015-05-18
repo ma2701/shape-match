@@ -2,14 +2,14 @@ package com
 
 import com.util.random.{RandomBoolean, RandomNumberGenerator}
 
-class DisplayShapes {
+object DisplayShapes {
 
-    def getShapes(currentLevel: GameLevel): Map[String, Seq[Shape]] = {
+    def getShapes(currentLevel: GameLevel): DisplayShapesPair  = {
 
         val shapesOnLeft   = ShapeSelector.select(currentLevel)
         val shapesOnRight  = maybeAlterShapes(shapesOnLeft, RandomBoolean.nextRandomTrueWithOneOutOfNChance(3))
 
-        Map("left" -> shapesOnLeft, "right" -> shapesOnRight)
+        DisplayShapesPair(shapesOnLeft, shapesOnRight)
     }
 
     def maybeAlterShapes(shapes: Seq[Shape] , shouldAlterShapes: Boolean):Seq[Shape] =  {
@@ -28,4 +28,3 @@ class DisplayShapes {
         }
     }
 }
-

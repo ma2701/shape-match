@@ -1,22 +1,26 @@
 package com
 
-class GameLogic(displayShapes: DisplayShapes = new DisplayShapes){
-    private val emptyShapesMap = Map.empty[String, Seq[Shape]]
+class GameLogic(val currentLevel: GameLevel = LevelOne,
+                val shapesPair      : DisplayShapesPair = DisplayShapesPair()) {
 
-
-    def start:Unit = Unit
-
-    def getDisplayShapes(gameLevel: GameLevel): Map[String,Seq[Shape]] =
-        displayShapes.getShapes(gameLevel)
-
-    def isUserInputCorrect(userInput: UserInput, presentedShapes: Map[String, Seq[Shape]]):Boolean =
+    def isUserInputCorrect(userInput: UserInput): GameLogic =
         userInput match {
             case Match =>
-                presentedShapes.get("left").getOrElse(emptyShapesMap) == presentedShapes.get("right").getOrElse(emptyShapesMap)
-            case NoMatch =>
-                presentedShapes.get("left").getOrElse(emptyShapesMap) != presentedShapes.get("right").getOrElse(emptyShapesMap)
+                gameLogicBasedOnUserSelection(shapesPair.left == shapesPair.right)
+            case Mismatch =>
+                gameLogicBasedOnUserSelection(shapesPair.left != shapesPair.right)
 
         }
 
+    def start:Unit = Unit
 
+    def isGameOver: Boolean = currentLevel.isLastLevel
+
+    private def gameLogicBasedOnUserSelection(shapesPairEquality:Boolean): GameLogic =
+        if(shapesPairEquality)  {
+            val nextLevel  = currentLevel.nextLevel
+            new GameLogic(nextLevel, DisplayShapes.getShapes(nextLevel))
+        } else {
+            new GameLogic(currentLevel, DisplayShapes.getShapes(currentLevel))
+        }
 }

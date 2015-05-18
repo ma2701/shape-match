@@ -1,104 +1,78 @@
 package com
 
 import org.scalatest.FunSuite
-
 import org.scalatest.mock.MockitoSugar
-import org.mockito.Mockito._
-import org.mockito.Matchers._
 
 class GameLogicTest extends FunSuite with MockitoSugar {
 
     test("can create instance") {
-        val game = new GameLogic()
+        val game = new GameLogic
     }
 
     test("given a game then start it") {
         val game = new GameLogic().start
     }
 
-    test("given a game when no shapes to display then getDisplayShapes returns an empty map of shapes") {
-        val gameLvl = LevelOne
-
-        val mockDisplayShapes = mock[DisplayShapes]
-
-        when(mockDisplayShapes.getShapes(gameLvl)).thenReturn(Map[String,Seq[Shape]]())
-
-        assert  ( 0 === new GameLogic(mockDisplayShapes).getDisplayShapes(gameLvl).size )
-
-    }
-
-    test("given a game when game level 1 display then getDisplayShapes returns one left and right shape") {
-        val gameLvl = LevelOne
-
-        val mockDisplayShapes = mock[DisplayShapes]
-
-        val rightShape= Seq(new Square)
-        val leftShape = Seq(new Circle)
-
-        when(mockDisplayShapes.getShapes(gameLvl)).thenReturn(Map[String,Seq[Shape]]("right" -> rightShape, "left" -> leftShape))
-
-        val shapes = new GameLogic(mockDisplayShapes).getDisplayShapes(gameLvl)
-
-        assert  ( 2 === shapes.size )
-
-        assertResult(rightShape) {
-            shapes.get("right").get
-        }
-
-        assertResult(leftShape) {
-            shapes.get("left").get
-        }
-    }
-
-    test("given a game when user selects match and left and right match then isUserInputCorrect returns true") {
-        val rightShape= "right" -> Seq(new Square)
-        val leftShape = "left"  -> Seq(new Square)
-
-        val shapes   =  Map.empty[String, Seq[Shape]] + (rightShape, leftShape)
+    test("given a game when user selects match and left and right match then isUserInputCorrect returns GameLogic with level increased") {
+        val shapes   =  DisplayShapesPair(Seq(new Square), Seq(new Square))
 
         val userInput = Match
 
-        assert (new GameLogic().isUserInputCorrect(userInput, shapes ))
+        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
 
+        assert (gl.currentLevel == LevelTwo)
     }
 
-    test("given a game when user selects nomatch and left and right match then isUserInputCorrect returns false") {
-        val userInput = NoMatch
+    test("given a game when user selects mismatch and left and right match then game remains in the current level") {
+        val userInput = Mismatch
 
-        val rightShape= "right" -> Seq(new Square)
-        val leftShape = "left"  -> Seq(new Square)
+        val shapes   =  DisplayShapesPair(Seq(new Square), Seq(new Square))
 
-        val shapes   =  Map.empty[String, Seq[Shape]] + (rightShape, leftShape)
+        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
 
+        assert (gl.currentLevel == LevelOne)
+    }
+
+    test("given a game when user selects mismatch and left and right shapes do not match then move to new level") {
+        val userInput = Mismatch
+
+        val shapes   =  DisplayShapesPair(Seq(new Circle), Seq(new Square))
+
+        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
+
+        assert (gl.currentLevel == LevelTwo)
+    }
+
+    test("given a game when user selects mismatch and either left or right shape is missing then move to next level") {
+        val userInput = Mismatch
+
+        val rightShape= Seq(new Square)
+
+        val shapes   =  DisplayShapesPair(Nil, rightShape)
+
+        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
+
+        assert (gl.currentLevel == LevelTwo)
+    }
+
+    test("given a game when user selects correctly then the next level has shape count corresponding to the level") {
+        val shapes   =  DisplayShapesPair(Seq(new Square), Seq(new Square))
+
+        val userInput = Match
+
+        val gl = new GameLogic(LevelOne, shapes).isUserInputCorrect(userInput)
+
+        assert (gl.shapesPair.left.size == LevelTwo.shapeCount)
+        assert (gl.shapesPair.right.size == LevelTwo.shapeCount)
+    }
+
+    test("given a game when game is not over then isGameOver returns false") {
         assertResult(false){
-            new GameLogic().isUserInputCorrect(userInput, shapes )
+            new GameLogic().isGameOver
         }
     }
 
-    test("given a game when user selects nomatch and left and right shapes do not match then isUserInputCorrect returns true") {
-        val userInput = NoMatch
-
-        val rightShape= "right" -> Seq(new Square)
-        val leftShape = "left"  -> Seq(new Circle)
-
-        val shapes   =  Map.empty[String, Seq[Shape]] + (rightShape, leftShape)
-
-        assertResult(true){
-            new GameLogic().isUserInputCorrect(userInput, shapes )
-        }
+    test("given a game when no next level exist then isGameOver returns true") {
+        assert(new GameLogic(LevelSeven).isGameOver)
     }
-
-    test("given a game when user selects nomatch and either left or right shape is missing then isUserInputCorrect returns true") {
-        val userInput = NoMatch
-
-        val rightShape= "right" -> Seq(new Square)
-
-        val shapes   =  Map.empty[String, Seq[Shape]] + (rightShape)
-
-        assertResult(true){
-            new GameLogic().isUserInputCorrect(userInput, shapes )
-        }
-    }
-
-
 }

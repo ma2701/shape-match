@@ -1,24 +1,23 @@
 package com.ui
 
-import javax.swing.JPanel
-
 import org.jdesktop.layout.GroupLayout
 import org.jdesktop.layout.GroupLayout.LEADING
 
-class RightPanel extends JPanel {
+class RightPanel extends ShapeMatchPanel {
 
-    setBackground(java.awt.Color.white)
+    def initComponents: Unit = {
 
-    val rightPanelLayout = new GroupLayout(this)
+        setBackground(java.awt.Color.white)
 
-    setLayout(rightPanelLayout)
+        val rightPanelLayout = new GroupLayout(this)
 
-    rightPanelLayout.setHorizontalGroup(
-        rightPanelLayout.createParallelGroup(LEADING).add(0, 0, Short.MaxValue))
+        setLayout(rightPanelLayout)
 
-    rightPanelLayout.setVerticalGroup(
-        rightPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-        .add(0, 381, Short.MaxValue));
+        rightPanelLayout.setHorizontalGroup(
+            rightPanelLayout.createParallelGroup(LEADING).add(0, 0, Short.MaxValue))
 
-    
+        rightPanelLayout.setVerticalGroup(
+            rightPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 381, Short.MaxValue));
+    }
 }
