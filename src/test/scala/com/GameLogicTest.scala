@@ -5,6 +5,7 @@ import java.awt.Dimension
 import com.shape.{HollowCircle, HollowSquare}
 import org.scalatest.FunSuite
 import org.scalatest.mock.MockitoSugar
+import GameLogic.REQUIRED_CORRECT_CONSECUTIVE_ANSWERES
 
 class GameLogicTest extends FunSuite with MockitoSugar {
 
@@ -26,12 +27,27 @@ class GameLogicTest extends FunSuite with MockitoSugar {
         val game = new GameLogic(gameLevelOne,matchingDisplayShapesPair, displayWindow).start
     }
 
-    test("given a game when user selects match and left and right match then isUserInputCorrect returns GameLogic with level increased") {
+    test("given a game when user selects match and left and right match and first consecutive correct answer then isUserInputCorrect returns game logic with same level") {
         val userInput = Match
 
         val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).evaluateUserInput(userInput)
 
-        assert (gl.currentLevel == LevelTwo)
+        assert (gl.currentLevel == gameLevelOne)
+        assert (1== gl.correctAnswers )
+    }
+
+    test("given a game when user selects match and left and right match and n consecutive correct answer then return GameLogic with level increased") {
+
+        val gl = makeNConsecutiveCorrectGuess(REQUIRED_CORRECT_CONSECUTIVE_ANSWERES, new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow))
+
+        assert(LevelTwo == gl.currentLevel)
+    }
+
+    test("given a game when user makes 4 consecutive correct guesses then level is increased to three") {
+
+        val gl = makeNConsecutiveCorrectGuess(REQUIRED_CORRECT_CONSECUTIVE_ANSWERES *2 , new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow))
+
+        assert(LevelThree == gl.currentLevel)
     }
 
     test("given a game when user selects mismatch and left and right match then game remains in the current level") {
@@ -42,18 +58,10 @@ class GameLogicTest extends FunSuite with MockitoSugar {
         assert (gl.currentLevel == LevelOne)
     }
 
-    test("given a game when user selects mismatch and left and right shapes do not match then move to new level") {
-        val userInput = Mismatch
-
-        val gl = new GameLogic(gameLevelOne, nonMatchingDisplayShapesPair, displayWindow).evaluateUserInput(userInput)
-
-        assert (gl.currentLevel == LevelTwo)
-    }
-
     test("given a game when user selects correctly then the next level has shape count corresponding to the level") {
         val userInput = Match
 
-        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow).evaluateUserInput(userInput)
+        val gl = makeNConsecutiveCorrectGuess(REQUIRED_CORRECT_CONSECUTIVE_ANSWERES, new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow))
 
         assert (gl.shapesPair.leftGrid.shapesInGrid  === LevelTwo.shapeCount)
         assert (gl.shapesPair.rightGrid.shapesInGrid === LevelTwo.shapeCount)
@@ -66,6 +74,23 @@ class GameLogicTest extends FunSuite with MockitoSugar {
     }
 
     test("given a game when no next level exist then isGameOver returns true") {
-        assert(new GameLogic(LevelSeven, matchingDisplayShapesPair, displayWindow).isGameOver)
+        assert(new GameLogic(LevelEleven, matchingDisplayShapesPair, displayWindow).isGameOver)
     }
+
+    private def makeNConsecutiveCorrectGuess(n:Int, gameLogic: GameLogic): GameLogic = {
+        def recurse(num: Int, gameLogic: GameLogic): GameLogic = {
+
+            if (num == 0) return gameLogic
+            else {
+                if (gameLogic.isMatchingPairShapes)
+                    recurse(num - 1, gameLogic.evaluateUserInput(Match))
+                else
+                    recurse(num - 1, gameLogic.evaluateUserInput(Mismatch))
+            }
+
+        }
+
+        recurse(n, gameLogic)
+    }
+
 }

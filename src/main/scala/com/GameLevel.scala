@@ -48,6 +48,29 @@ object LevelSix extends GameLevel {
 object LevelSeven extends GameLevel {
     override val shapeCount: Int = 7
 
+    override def nextLevel: GameLevel = LevelEight
+}
+
+object LevelEight extends GameLevel {
+    override val shapeCount: Int = 8
+
+    override def nextLevel: GameLevel = LevelNine
+}
+
+object LevelNine extends GameLevel {
+    override val shapeCount: Int = 9
+
+    override def nextLevel: GameLevel = LevelTen
+}
+
+object LevelTen extends GameLevel {
+    override val shapeCount: Int = 10
+
+    override def nextLevel: GameLevel = LevelEleven
+}
+object LevelEleven extends GameLevel {
+    override val shapeCount: Int = 11
+
     override def nextLevel: GameLevel = LevelNull
 }
 
