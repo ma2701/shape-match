@@ -13,7 +13,9 @@ object UIElements {
          UIElements(
              new Button(shapeMatchFrame, GREEN, buttonFont , BLACK, "MATCH" ),
              new Button(shapeMatchFrame, RED, buttonFont, BLACK, "MISMATCH" ),
-             new RightPanel, new LeftPanel,  new TimerPanel)
+             new RightPanel,
+             new LeftPanel,
+             new TimerPanel)
 
 
 }

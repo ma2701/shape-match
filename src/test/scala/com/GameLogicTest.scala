@@ -36,6 +36,28 @@ class GameLogicTest extends FunSuite with MockitoSugar {
         assert (1== gl.correctAnswers )
     }
 
+    test("given a game when user chooses correctly then points added to score") {
+        val userInput = Match
+        val score     = Score()
+
+        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow, 0, score).evaluateUserInput(userInput)
+
+        assert (gl.currentLevel == gameLevelOne)
+
+        assert (1== gl.score.points)
+    }
+
+    test("given a game when user chooses wrongly then points deducted") {
+        val userInput = Mismatch
+        val score     = Score()
+
+        val gl = new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow, 0, score).evaluateUserInput(userInput)
+
+        assert (gl.currentLevel == gameLevelOne)
+
+        assert (-1 == gl.score.points)
+    }
+
     test("given a game when user selects match and left and right match and n consecutive correct answer then return GameLogic with level increased") {
 
         val gl = makeNConsecutiveCorrectGuess(REQUIRED_CORRECT_CONSECUTIVE_ANSWERES, new GameLogic(gameLevelOne, matchingDisplayShapesPair, displayWindow))

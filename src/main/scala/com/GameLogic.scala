@@ -6,7 +6,8 @@ object GameLogic {
 case class GameLogic(   currentLevel: GameLevel = LevelOne,
                         shapesPair  : DisplayShapesPair,
                         displayWindow : DisplayWindow,
-                        correctAnswers:Int = 0 ) {
+                        correctAnswers:Int = 0,
+                        score:Score       = Score()) {
     import GameLogic._
 
     def evaluateUserInput(userInput: UserInput): GameLogic =
@@ -25,10 +26,32 @@ case class GameLogic(   currentLevel: GameLevel = LevelOne,
 
     private def gameLogicBasedOnUserSelection(shapesPairEquality:Boolean): GameLogic =
         if(shapesPairEquality)  {
-            val nextLevel  = if(correctAnswers == (REQUIRED_CORRECT_CONSECUTIVE_ANSWERES -1 ) ) currentLevel.nextLevel else currentLevel
-            val corrAnswers = if(nextLevel == currentLevel)  correctAnswers +1 else 0
-            new GameLogic(nextLevel, DisplayShapes.getShapes(nextLevel, displayWindow), displayWindow, corrAnswers )
+            val level   = determineGameLevel
+            val corrAnswers = determineCorrectAnswerCount(level)
+            new GameLogic(level,
+                DisplayShapes.getShapes(level, displayWindow),
+                displayWindow,
+                corrAnswers,
+                score.add(level.points))
         } else {
-            new GameLogic(currentLevel, DisplayShapes.getShapes(currentLevel, displayWindow), displayWindow, correctAnswers)
+            new GameLogic(
+                currentLevel,
+                DisplayShapes.getShapes(currentLevel, displayWindow),
+                displayWindow,
+                correctAnswers,
+                score.deduct(currentLevel.points))
         }
+
+    private def determineCorrectAnswerCount(level: GameLevel): Int =
+        if (level == currentLevel)
+            correctAnswers + 1
+        else 0
+
+
+    private def determineGameLevel: GameLevel =
+        if (correctAnswers == (REQUIRED_CORRECT_CONSECUTIVE_ANSWERES - 1))
+            currentLevel.nextLevel
+        else
+            currentLevel
+
 }

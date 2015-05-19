@@ -43,7 +43,7 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener {
 
         gameLogic     = gameLogic.evaluateUserInput(userInput).copy(displayWindow = uiElements.displayWindow)
 
-        uiElements.timerPanel.setCurrentGameLevel(gameLogic.currentLevel).updateGameLevelText
+        uiElements.timerPanel.setCurrentStats(gameLogic.currentLevel, gameLogic.score.points).updateGameLevelText
 
         mainGameLoop
     }

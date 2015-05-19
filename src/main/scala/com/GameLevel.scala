@@ -7,6 +7,11 @@ sealed trait GameLevel {
 
     def isLastLevel: Boolean = (nextLevel == LevelNull)
 
+    // for now the points for each level is equal to the
+    // shape count presented in that level.
+    def points   = shapeCount
+
+    override def toString:String = s"${getClass.getSimpleName.replaceFirst("\\$", "")}"
 }
 
 object LevelOne extends GameLevel {
