@@ -9,7 +9,10 @@ import org.jdesktop.layout.GroupLayout
 class ShapeMatchFrame extends JFrame with Runnable with ActionListener {
 
     private[this] val uiElements            = UIElements.default(this)
-    private[this] var gameThread: Thread    = _
+
+    private[this] var gameThread:  Thread   = _
+    private[this] var timerThread: Thread   = _
+
     private[this] var gameLogic : GameLogic = _
 
     initComponents
@@ -19,6 +22,9 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener {
 
         gameThread = new Thread(this)
         gameThread.start()
+
+        timerThread = new Thread(new GameTimer(uiElements.topPanel.uiElements.countdownTimerPanel))
+        timerThread.start()
     }
 
     override def run(): Unit = mainGameLoop
@@ -43,7 +49,7 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener {
 
         gameLogic     = gameLogic.evaluateUserInput(userInput).copy(displayWindow = uiElements.displayWindow)
 
-        uiElements.timerPanel.setCurrentStats(gameLogic.currentLevel, gameLogic.score.points).updateGameLevelText
+        uiElements.topPanel.setCurrentStats(gameLogic.currentLevel, gameLogic.score.points).updateGameLevelText
 
         mainGameLoop
     }

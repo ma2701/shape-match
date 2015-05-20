@@ -15,7 +15,7 @@ object UIElements {
              new Button(shapeMatchFrame, RED, buttonFont, BLACK, "MISMATCH" ),
              new RightPanel,
              new LeftPanel,
-             new TimerPanel)
+             new TopPanel)
 
 
 }
@@ -24,7 +24,7 @@ case class UIElements(matchButton: JButton,
                       noMatchButton: JButton,
                       rightPanel: RightPanel,
                       leftPanel: LeftPanel,
-                      timerPanel: TimerPanel) {
+                      topPanel: TopPanel) {
 
     def displayWindow : DisplayWindow =
         new DisplayWindow(new Dimension(leftPanel.getWidth, leftPanel.getHeight))

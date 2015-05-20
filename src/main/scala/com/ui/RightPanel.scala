@@ -6,8 +6,7 @@ import org.jdesktop.layout.GroupLayout.LEADING
 class RightPanel extends ShapeMatchPanel {
 
     def initComponents: Unit = {
-
-        setBackground(java.awt.Color.white)
+        setBackground(new java.awt.Color(33, 21, 21))
 
         val rightPanelLayout = new GroupLayout(this)
 
