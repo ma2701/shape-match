@@ -1,7 +1,10 @@
 # shape-match
 
 
-Still a work in progress. 
+***Still a work in progress. 
+
+You have 1:30 min. to match as many shapes as you can. The shapes are presented in left and right window. 
+If you guess right you will move to the next level where you have to match more shapes. 
 
 
 ### Required software
