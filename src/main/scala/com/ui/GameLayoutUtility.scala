@@ -37,7 +37,7 @@ object GameLayoutUtility {
                  .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                       .add(elements.noMatchButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                       .add(elements.matchButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                 .addContainerGap(22, Short.MaxValue)))
+                 .addContainerGap(21, Short.MaxValue)))
 
     }
 

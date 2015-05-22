@@ -3,22 +3,23 @@ package com.ui
 import java.awt._
 import javax.swing.JPanel
 
-import com.{GameLevel, LevelOne}
+import com.{GameLevel}
 import org.jdesktop.layout.GroupLayout
 
 class GameStatusPanel extends JPanel{
 
-    private[this] var currentLevel:GameLevel = LevelOne
+    private[this] var currentLevel:GameLevel = GameLevel(1)
     private[this] var currentPoints:Int      = 0
     private[this] var correctAnswer:Boolean  = true
     private[this] val currentLevelPosition   = new Point(10,40)
     private[this] val currentPointsPosition  = new Point(currentLevelPosition.x, currentLevelPosition.y + 40)
 
-    private[this] val statsTextColour        = new Color(25, 25, 112)
-    private[this] val scoreTextColourCorrect = new Color(0,128,0)
+    private[this] val statsTextColour        = ShapeMatchFrame.mainUIColor
+    private[this] val scoreTextColourCorrect = ShapeMatchFrame.mainUIColor
+
     private[this] val scoreTextColourWrong   = new Color(255,0,0)
-    private[this] val fontSize               = 14
-    private[this] val font                   = new Font("TimesRoman", Font.PLAIN, fontSize)
+    private[this] val fontSize               = 16
+    private[this] val font                   = new Font("TimesRoman", Font.BOLD, fontSize)
 
     initComponents
 
@@ -39,7 +40,7 @@ class GameStatusPanel extends JPanel{
         super.paintComponent(g)
         g.setColor(statsTextColour)
         g.setFont(font)
-        g.drawString(s"Current Level: ${currentLevel}", currentLevelPosition.x, currentLevelPosition.y)
+        g.drawString(s"Level: ${currentLevel}", currentLevelPosition.x, currentLevelPosition.y)
 
         if(correctAnswer) {
             g.setColor(scoreTextColourCorrect)
@@ -52,13 +53,12 @@ class GameStatusPanel extends JPanel{
     }
 
     private def initComponents: Unit = {
-        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED))
 
         val gameStatusPanelLayout = new GroupLayout(this)
         setLayout(gameStatusPanelLayout)
         gameStatusPanelLayout.setHorizontalGroup(
             gameStatusPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 199, Short.MaxValue)
+            .add(0, 200, Short.MaxValue)
         )
         gameStatusPanelLayout.setVerticalGroup(
             gameStatusPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

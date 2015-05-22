@@ -25,16 +25,6 @@ class DisplayGridTest extends FunSuite {
         assert(GRID_ROW_CNT === cells.size)
     }
 
-    test("given display grid then toString displays grid content") {
-        val grid = new DisplayGrid(testWindow, shapes, slots)
-
-        assert(GRID_ROW_CNT === grid.cells.size)
-
-        val gridInStringForm = grid.toString
-
-        assert(GRID_ROW_CNT * GRID_COL_CNT === "x:".r.findAllMatchIn(gridInStringForm).length)
-    }
-
     test("given display of 10x10 then each cell is 1x1") {
 
         val grid = new DisplayGrid(testWindow, shapes, slots)

@@ -1,9 +1,9 @@
 package com
 
 object GameLogic {
-    val REQUIRED_CORRECT_CONSECUTIVE_ANSWERES: Int = 3
+    val REQUIRED_CORRECT_CONSECUTIVE_ANSWERES: Int = 2
 }
-case class GameLogic(   currentLevel: GameLevel = LevelOne,
+case class GameLogic(   currentLevel: GameLevel = GameLevel(1),
                         shapesPair  : DisplayShapesPair,
                         displayWindow : DisplayWindow,
                         correctAnswers:Int = 0,
@@ -20,12 +20,12 @@ case class GameLogic(   currentLevel: GameLevel = LevelOne,
 
     def start:Unit = Unit
 
-    def isGameOver: Boolean = currentLevel.isLastLevel
+    def isGameOver: Boolean = false
 
     def isMatchingPairShapes = shapesPair.leftGrid.isEqual(shapesPair.rightGrid)
 
-    private def gameLogicBasedOnUserSelection(shapesPairEquality:Boolean): GameLogic =
-        if(shapesPairEquality)  {
+    private def gameLogicBasedOnUserSelection(shapesEquality:Boolean): GameLogic =
+        if(shapesEquality)  {
             val level   = determineGameLevel
             val corrAnswers = determineCorrectAnswerCount(level)
             new GameLogic(level,

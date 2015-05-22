@@ -1,6 +1,6 @@
 package com.ui
 
-import java.awt.{Color, Font, Graphics}
+import java.awt.{Point, Color, Font, Graphics}
 import javax.swing.JPanel
 
 import org.jdesktop.layout.GroupLayout
@@ -9,7 +9,9 @@ class CountdownTimerPanel extends JPanel {
 
     private[this] var time: String = ""
     private[this] val font = Font.createFont(Font.TRUETYPE_FONT, getClass.getResourceAsStream("/fonts/digital-7.ttf") )
-                             .deriveFont(Font.BOLD, 40)
+                             .deriveFont(Font.BOLD, 80)
+    private[this] val timerColor = ShapeMatchFrame.mainUIColor
+    private[this] val clockLocation = new Point(0, 80)
 
     initComponents
 
@@ -27,9 +29,9 @@ class CountdownTimerPanel extends JPanel {
 
         super.paintComponent(g)
         g.setFont(font)
-        g.setColor(Color.ORANGE)
+        g.setColor(timerColor)
 
-        g.drawString(s"${time}", 75, 40)
+        g.drawString(s"${time}",clockLocation.x, clockLocation.y )
     }
 
     private def initComponents: Unit = {

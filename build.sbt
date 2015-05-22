@@ -7,7 +7,7 @@ resolvers += "repo.codahale.com" at "http://repo.codahale.com"
 libraryDependencies ++= Seq(
     "log4j"              %   "log4j"                  % "1.2.16",
     "org.scala-lang"     %   "scala-swing"            % "2.10+",
-    "org.swinglabs"      %   "swing-layout"           % "1.0.4"
+    "org.swinglabs"      %   "swing-layout"           % "1.0.3"
 )
 
 libraryDependencies ++= Seq(
