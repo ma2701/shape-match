@@ -5,16 +5,17 @@ import java.awt.{Dimension, Font}
 import javax.swing.JButton
 
 import com.DisplayWindow
+import com.ui.panel.{TopPanel, RightShapePanel, LeftShapePanel}
 
 object UIElements {
     val buttonFont = new Font("Arial", 1, 15)
 
     def default(shapeMatchFrame: ShapeMatchFrame):UIElements =
          UIElements(
-             new Button(shapeMatchFrame, GREEN, buttonFont , BLACK, "MATCH" ),
-             new Button(shapeMatchFrame, RED, buttonFont, BLACK, "MISMATCH" ),
-             new RightPanel,
-             new LeftPanel,
+             new Button(shapeMatchFrame, GREEN, BLACK, buttonFont, "MATCH"),
+             new Button(shapeMatchFrame, RED, BLACK, buttonFont, "MISMATCH"),
+             new RightShapePanel,
+             new LeftShapePanel,
              new TopPanel)
 
 
@@ -22,8 +23,8 @@ object UIElements {
 
 case class UIElements(matchButton: JButton,
                       noMatchButton: JButton,
-                      rightPanel: RightPanel,
-                      leftPanel: LeftPanel,
+                      rightPanel: RightShapePanel,
+                      leftPanel: LeftShapePanel,
                       topPanel: TopPanel) {
 
     def displayWindow : DisplayWindow =

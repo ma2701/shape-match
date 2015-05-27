@@ -1,8 +1,9 @@
-package com.ui
+package com.ui.panel
 
-import java.awt.{Point, Color, Font, Graphics}
+import java.awt.{Font, Graphics, Point}
 import javax.swing.JPanel
 
+import com.ui.ShapeMatchFrame
 import org.jdesktop.layout.GroupLayout
 
 class CountdownTimerPanel extends JPanel {

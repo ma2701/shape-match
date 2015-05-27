@@ -1,9 +1,10 @@
-package com.ui
+package com.ui.panel
 
 import java.awt._
 import javax.swing.JPanel
 
-import com.{GameLevel}
+import com.GameLevel
+import com.ui.ShapeMatchFrame
 import org.jdesktop.layout.GroupLayout
 
 class GameStatusPanel extends JPanel{

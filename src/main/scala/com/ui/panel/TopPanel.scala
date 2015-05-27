@@ -1,12 +1,13 @@
-package com.ui
+package com.ui.panel
 
 import javax.swing.JPanel
 
 import com.GameLevel
+import com.ui.TopPanelElements
 
 class TopPanel extends JPanel {
 
-    val uiElements            = TimerUIElements.default(this)
+    val uiElements            = TopPanelElements.default(this)
 
     initComponents
 

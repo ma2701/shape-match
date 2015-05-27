@@ -1,4 +1,4 @@
-package com.ui
+package com.ui.panel
 
 import java.awt.Graphics
 import javax.swing.JPanel

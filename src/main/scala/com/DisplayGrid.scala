@@ -19,11 +19,16 @@ class DisplayGrid(window: DisplayWindow, shapes: Seq[Shape], slots: Set[Int] ) {
 
     def cells = gridCells
 
-    private val gridCells = createCells
+    private val gridCells = generateGridOfEmptyCells(shapes.zip(slots))
     
     def toIndex(rowCol: (Int, Int)): Int = (GRID_ROW_CNT * rowCol._1) + rowCol._2
 
-    def maybeAlterShapes(shouldAlterShapes: Boolean = nextRandomTrueWithOneOutOfNChance(3)): DisplayGrid=  {
+    /**
+     * there is 50% chance that this method will return a DisplayGrid that has one
+     * shape replaced.
+     *
+     */
+    def maybeAlterShapes(shouldAlterShapes: Boolean = nextRandomTrueWithOneOutOfNChance(2)): DisplayGrid=  {
 
         if(shouldAlterShapes) {
             val index = RandomNumberGenerator.next(0 to (shapes.size - 1))
@@ -45,8 +50,6 @@ class DisplayGrid(window: DisplayWindow, shapes: Seq[Shape], slots: Set[Int] ) {
 
     def isEqual(other:DisplayGrid): Boolean = this.cells == other.cells
     def isNotEqual(other:DisplayGrid): Boolean = !isEqual(other)
-
-    private def createCells: Seq[Seq[Cell]] = generateGridOfEmptyCells(shapes.zip(slots))
 
     private def generateGridOfEmptyCells(shapeIndexTuples:Seq[(Shape,Int)]): Seq[Seq[Cell]] = {
         val rows = (window.dimension.width / GRID_ROW_CNT)

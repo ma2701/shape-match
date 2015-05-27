@@ -1,11 +1,11 @@
-package com.ui
+package com.ui.panel
 
 import java.awt.Color
 
 import org.jdesktop.layout.GroupLayout
 import org.jdesktop.layout.GroupLayout.LEADING
 
-class RightPanel extends ShapeMatchPanel {
+class RightShapePanel extends ShapeMatchPanel {
 
     def initComponents: Unit = {
 
