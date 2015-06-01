@@ -40,17 +40,16 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener with Time
     override def run(): Unit = mainGameLoop
 
     private def mainGameLoop: Unit = {
+
         val displayWindow =uiElements.displayWindow
 
         if(gameLogic == null)
             gameLogic = GameLogic(levelOne, DisplayShapes.getShapes(levelOne,displayWindow),displayWindow )
 
-        uiElements.rightPanel.drawShapes(gameLogic.shapesPair.rightGrid)
+        uiElements.layeredPane.uiElements.rightShapePanel.drawShapes(gameLogic.shapesPair.rightGrid)
 
-        uiElements.leftPanel.drawShapes(gameLogic.shapesPair.leftGrid)
+        uiElements.layeredPane.uiElements.leftShapePanel.drawShapes(gameLogic.shapesPair.leftGrid)
 
-        if (gameLogic.isGameOver)
-            System.exit(0) // temp
     }
 
     override def actionPerformed(e: ActionEvent): Unit = {
@@ -73,14 +72,15 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener with Time
 
         getContentPane().setLayout(layout)
 
-        GameLayoutUtility.setLayoutAttributes(layout, uiElements)
+        GameLayoutUtility.setMainFrameLayoutAttributes(layout, uiElements)
 
         pack()
     }
 
     override def timerHasExpired: Unit = {
-        // the game is over
-        Thread.sleep(1000)
-        System.exit(0) // temp for now
+        uiElements.layeredPane.uiElements.finalScorePanel.setFinalScore(gameLogic.score.points)
+        uiElements.layeredPane.displayFinalScore
+
+        gameLogic = gameLogic.gameOver
     }
 }

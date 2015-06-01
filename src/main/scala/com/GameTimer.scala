@@ -5,7 +5,7 @@ import com.ui.panel.CountdownTimerPanel
 
 class GameTimer(val timerPanel: CountdownTimerPanel) extends Runnable {
 
-    private[this] var countDownClock = CountDownClock(0, 5)
+    private[this] var countDownClock = CountDownClock(1, 30)
 
     private[this] val subscriberList = scala.collection.mutable.ListBuffer[TimerExpirySubscriber]()
 

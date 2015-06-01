@@ -1,26 +1,22 @@
 package com.ui.panel
 
-import java.awt.Color
-
-import org.jdesktop.layout.GroupLayout
+import com.ui.ShapeMatchFrame
 import org.jdesktop.layout.GroupLayout.LEADING
 
 class LeftShapePanel extends ShapeMatchPanel {
 
     def initComponents: Unit = {
+        setBackground(ShapeMatchFrame.mainUIColor)
 
-        setBackground(Color.BLACK)
+        val leftShapePanelLayout = new org.jdesktop.layout.GroupLayout(this)
+        setLayout(leftShapePanelLayout)
+        leftShapePanelLayout.setHorizontalGroup(
+            leftShapePanelLayout.createParallelGroup(LEADING)
+            .add(0, 293, Short.MaxValue))
 
-        val leftPanelLayout = new GroupLayout(this)
-
-        setLayout(leftPanelLayout)
-
-        leftPanelLayout.setHorizontalGroup(
-            leftPanelLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(0, 286, Short.MaxValue))
-
-        leftPanelLayout.setVerticalGroup(
-            leftPanelLayout.createParallelGroup(LEADING)
-            .add(0, 0, Short.MaxValue))
+        leftShapePanelLayout.setVerticalGroup(
+            leftShapePanelLayout.createParallelGroup(LEADING)
+            .add(0, 429, Short.MaxValue)
+        )
     }
 }

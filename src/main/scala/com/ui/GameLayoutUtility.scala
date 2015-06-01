@@ -1,44 +1,82 @@
 package com.ui
 
 import org.jdesktop.layout.GroupLayout
+import org.jdesktop.layout.GroupLayout._
 
 object GameLayoutUtility {
 
-    def setLayoutAttributes(layout: GroupLayout, elements: UIElements ):Unit = {
+    def setMainFrameLayoutAttributes(layout: GroupLayout, elements: UIElements): Unit = {
 
         layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                                           .add(33, 33, 33)
-                                                           .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                                                .add(elements.topPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MaxValue)
-                                                                .add(layout.createSequentialGroup()
-                                                                     .add(elements.leftPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                                     .add(elements.rightPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MaxValue)))
-                                                           .add(35, 35, 35))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                                           .addContainerGap(198, Short.MaxValue)
-                                                           .add(elements.matchButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 121, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                           .add(elements.noMatchButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 121, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                           .add(199, 199, 199)))
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            layout.createParallelGroup(LEADING)
+            .add(TRAILING, layout.createSequentialGroup()
+                           .addContainerGap(DEFAULT_SIZE, Short.MaxValue)
+                           .add(elements.matchButton, PREFERRED_SIZE, 121, PREFERRED_SIZE)
+                           .add(27, 27, 27)
+                           .add(elements.noMatchButton, PREFERRED_SIZE, 121, PREFERRED_SIZE)
+                           .add(204, 204, 204))
             .add(layout.createSequentialGroup()
                  .addContainerGap()
-                 .add(elements.topPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                 .add(18, 18, 18)
-                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                      .add(elements.rightPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MaxValue)
-                      .add(elements.leftPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MaxValue))
-                 .add(28, 28, 28)
-                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                      .add(elements.noMatchButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                      .add(elements.matchButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                 .addContainerGap(21, Short.MaxValue)))
+                 .add(elements.layeredPane)
+                 .addContainerGap())
+            .add(layout.createParallelGroup(LEADING)
+                 .add(layout.createSequentialGroup()
+                      .addContainerGap()
+                      .add(elements.topPanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MaxValue)
+                      .addContainerGap()))
+        )
 
+        layout.setVerticalGroup(
+            layout.createParallelGroup(LEADING)
+            .add(layout.createSequentialGroup()
+                 .addContainerGap(130, Short.MaxValue)
+                 .add(elements.layeredPane, PREFERRED_SIZE, 453, PREFERRED_SIZE)
+                 .add(18, 18, 18)
+                 .add(layout.createParallelGroup(BASELINE)
+                      .add(elements.matchButton, PREFERRED_SIZE, 50, PREFERRED_SIZE)
+                      .add(elements.noMatchButton, PREFERRED_SIZE, 50, PREFERRED_SIZE))
+                 .add(49, 49, 49))
+            .add(layout.createParallelGroup(LEADING)
+                 .add(layout.createSequentialGroup()
+                      .addContainerGap()
+                      .add(elements.topPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                      .addContainerGap(572, Short.MaxValue)))
+        )
+
+    }
+
+    def setMainLayeredPaneAttributes(rootPaneLayout: GroupLayout, elements: LayeredPaneElements): Unit = {
+
+        rootPaneLayout.setHorizontalGroup(
+            rootPaneLayout.createParallelGroup(LEADING)
+            .add(rootPaneLayout.createSequentialGroup()
+                 .add(elements.leftShapePanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 72, Short.MaxValue)
+                 .add(elements.rightShapePanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE))
+            .add(rootPaneLayout.createParallelGroup(LEADING)
+                 .add(TRAILING, elements.gameStartPanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MaxValue))
+            .add(rootPaneLayout.createParallelGroup(LEADING)
+                 .add(elements.finalScorePanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MaxValue))
+        )
+        rootPaneLayout.setVerticalGroup(
+            rootPaneLayout.createParallelGroup(LEADING)
+            .add(TRAILING, rootPaneLayout.createSequentialGroup()
+                           .addContainerGap(DEFAULT_SIZE, Short.MaxValue)
+                           .add(rootPaneLayout.createParallelGroup(TRAILING)
+                                .add(elements.rightShapePanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                .add(elements.leftShapePanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE))
+                           .addContainerGap())
+            .add(rootPaneLayout.createParallelGroup(LEADING)
+                 .add(TRAILING, rootPaneLayout.createSequentialGroup()
+                                .addContainerGap(DEFAULT_SIZE, Short.MaxValue)
+                                .add(elements.gameStartPanel, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                .addContainerGap()))
+            .add(rootPaneLayout.createParallelGroup(LEADING)
+                 .add(rootPaneLayout.createSequentialGroup()
+                      .add(87, 87, 87)
+                      .add(elements.finalScorePanel, DEFAULT_SIZE, DEFAULT_SIZE, Short.MaxValue)
+                      .addContainerGap()))
+        )
     }
 
 

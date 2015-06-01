@@ -98,9 +98,9 @@ class GameLogicTest extends FunSuite with MockitoSugar {
         }
     }
 
-//    test("given a game when no next level exist then isGameOver returns true") {
-//        assert(new GameLogic(LevelEleven, matchingDisplayShapesPair, displayWindow).isGameOver)
-//    }
+    test("given game logic when gameOver is called return new instance that returns new instance ") {
+        assert(new GameLogic(GameLevel(1), matchingDisplayShapesPair, displayWindow).gameOver.isGameOver)
+    }
 
     private def makeNConsecutiveCorrectGuess(n:Int, gameLogic: GameLogic): GameLogic = {
         def recurse(num: Int, gameLogic: GameLogic): GameLogic = {
