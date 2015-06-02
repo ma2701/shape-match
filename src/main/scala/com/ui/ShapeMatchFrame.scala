@@ -51,7 +51,8 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener with Time
         uiElements.layeredPane.uiElements.leftShapePanel.drawShapes(gameLogic.shapesPair.leftGrid)
 
         if(gameLogic.isGameOver)
-            EventQueue.invokeLater( new ApplicationDeath())
+            EventQueue.invokeLater( new ApplicationDeath)
+
 
     }
 
@@ -85,5 +86,7 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener with Time
         uiElements.layeredPane.displayFinalScore
 
         gameLogic = gameLogic.gameOver
+
+        mainGameLoop
     }
 }
