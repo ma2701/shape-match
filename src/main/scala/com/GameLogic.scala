@@ -9,7 +9,7 @@ case class GameLogic(currentLevel: GameLevel = GameLevel(1),
                      displayWindow: DisplayWindow,
                      correctAnswers: Int = 0,
                      score: Score = Score(),
-                     isGameOver: Boolean   = false   ) {
+                     val isGameOver: Boolean   = false   ) {
 
     import GameLogic._
 
@@ -23,7 +23,7 @@ case class GameLogic(currentLevel: GameLevel = GameLevel(1),
 
     def start: Unit = Unit
 
-    def gameOver : GameLogic = this.copy(isGameOver = true)
+    def markGameAsFinished : GameLogic = copy(isGameOver = true)
 
     def isMatchingPairShapes = shapesPair.leftGrid.isEqual(shapesPair.rightGrid)
 

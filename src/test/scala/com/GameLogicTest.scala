@@ -99,7 +99,7 @@ class GameLogicTest extends FunSuite with MockitoSugar {
     }
 
     test("given game logic when gameOver is called return new instance that returns new instance ") {
-        assert(new GameLogic(GameLevel(1), matchingDisplayShapesPair, displayWindow).gameOver.isGameOver)
+        assert(new GameLogic(GameLevel(1), matchingDisplayShapesPair, displayWindow).markGameAsFinished.isGameOver)
     }
 
     private def makeNConsecutiveCorrectGuess(n:Int, gameLogic: GameLogic): GameLogic = {

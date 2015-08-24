@@ -1,14 +1,18 @@
 package com.ui
 
-import java.awt.{Color, Font}
+import java.awt.event.ActionListener
+import java.awt.{Frame, Color, Font}
 import javax.swing.JButton
 
-class Button(frame: ShapeMatchFrame, bgColor: Color, fgColor: Color, font: Font, text: String) extends JButton {
+class Button(bgColor: Color, fgColor: Color, font: Font, text: String) extends JButton {
 
     setBackground(bgColor)
     setFont(font) // NOI18N
     setForeground(fgColor)
     setText(text)
 
-    addActionListener(frame)
+    def actionListener(actionListener:ActionListener ): Unit = {
+        addActionListener(actionListener)
+    }
+
 }

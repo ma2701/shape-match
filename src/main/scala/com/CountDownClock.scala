@@ -11,7 +11,7 @@ case class CountDownClock(minute: Int, second: Int) {
         CountDownClock(min, sec)
     }
 
-    def isOutOfTime: Boolean = this == CountDownClock(0, 0)
+    def hasExpired: Boolean = this == CountDownClock(0, 0)
 
     override def toString: String = s"${minute}:${second}"
 }

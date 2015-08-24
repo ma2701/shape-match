@@ -6,22 +6,19 @@ import javax.swing.JFrame
 
 import com._
 import org.jdesktop.layout.GroupLayout
-object ShapeMatchFrame{
-    val mainUIColor = new Color(0,0,0)
+
+object ShapeMatchFrame {
+    val mainUIColor = new Color(0, 0, 0)
 }
 
-class ShapeMatchFrame extends JFrame with Runnable with ActionListener with TimerExpirySubscriber {
+class ShapeMatchFrame(uiElements: UIElements,
+                      timerThread: Thread,
+                      gameTimer: GameTimer,
+                      logic: GameLogic) extends JFrame with Runnable with ActionListener with TimerExpirySubscriber {
 
-    private[this] val uiElements            = UIElements.default(this)
-    private[this] val gameTimer             = new GameTimer(uiElements.topPanel.uiElements.countdownTimerPanel)
+    private[this] var gameThread: Thread = _
 
-    private[this] var gameThread:  Thread   = _
-
-    private[this] var timerThread: Thread   = _
-
-    private[this] var gameLogic : GameLogic = _
-
-    private[this] val levelOne              = GameLevel(1)
+    var gameLogic: GameLogic = logic
 
     gameTimer.addTimerExpirySubscriber(this)
 
@@ -33,7 +30,6 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener with Time
         gameThread = new Thread(this)
         gameThread.start()
 
-        timerThread = new Thread(gameTimer)
         timerThread.start()
     }
 
@@ -41,18 +37,9 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener with Time
 
     private def mainGameLoop: Unit = {
 
-        val displayWindow =uiElements.displayWindow
-
-        if(gameLogic == null)
-            gameLogic = GameLogic(levelOne, DisplayShapes.getShapes(levelOne,displayWindow),displayWindow )
-
         uiElements.layeredPane.uiElements.rightShapePanel.drawShapes(gameLogic.shapesPair.rightGrid)
 
         uiElements.layeredPane.uiElements.leftShapePanel.drawShapes(gameLogic.shapesPair.leftGrid)
-
-        if(gameLogic.isGameOver)
-            EventQueue.invokeLater( new ApplicationDeath)
-
 
     }
 
@@ -60,7 +47,7 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener with Time
 
         val userInput = UserInput.fromString(e.getActionCommand)
 
-        gameLogic     = gameLogic.evaluateUserInput(userInput).copy(displayWindow = uiElements.displayWindow)
+        gameLogic = gameLogic.evaluateUserInput(userInput).copy(displayWindow = uiElements.displayWindow)
 
         uiElements.topPanel.setCurrentStats(gameLogic.currentLevel, gameLogic.score.points).updateGameLevelText
 
@@ -85,7 +72,7 @@ class ShapeMatchFrame extends JFrame with Runnable with ActionListener with Time
         uiElements.layeredPane.uiElements.finalScorePanel.setFinalScore(gameLogic.score.points)
         uiElements.layeredPane.displayFinalScore
 
-        gameLogic = gameLogic.gameOver
+        gameLogic = gameLogic.markGameAsFinished
 
         mainGameLoop
     }

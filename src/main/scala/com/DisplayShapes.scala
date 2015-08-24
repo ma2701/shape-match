@@ -6,13 +6,13 @@ import DisplayGrid._
 
 object DisplayShapes {
 
-    def getShapes(currentLevel: GameLevel, displayWindow:DisplayWindow) : DisplayShapesPair  = {
+    def getShapes(currentLevel: GameLevel, displayWindow: DisplayWindow): DisplayShapesPair = {
         val shapes = ShapeSelector.select(currentLevel)
 
         val slots = getSlotIndicesToPutShapesIn(shapes)
 
-        val shapesOnLeft   = new DisplayGrid(displayWindow, shapes, slots)
-        val shapesOnRight  = shapesOnLeft.maybeAlterShapes()
+        val shapesOnLeft = new DisplayGrid(displayWindow, shapes, slots)
+        val shapesOnRight = shapesOnLeft.maybeAlterShapes()
 
         DisplayShapesPair(shapesOnLeft, shapesOnRight)
     }
