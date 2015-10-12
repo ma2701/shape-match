@@ -32,14 +32,14 @@ case class GameLogic(currentLevel: GameLevel = GameLevel(1),
             val level = determineGameLevel
             val corrAnswers = determineCorrectAnswerCount(level)
             new GameLogic(level,
-                DisplayShapes.getShapes(level, displayWindow),
+                DisplayShapes.getShapesForLevel(level, displayWindow),
                 displayWindow,
                 corrAnswers,
                 score.add(level.points))
         } else {
             new GameLogic(
                 currentLevel,
-                DisplayShapes.getShapes(currentLevel, displayWindow),
+                DisplayShapes.getShapesForLevel(currentLevel, displayWindow),
                 displayWindow,
                 correctAnswers,
                 score.deduct(currentLevel.points))

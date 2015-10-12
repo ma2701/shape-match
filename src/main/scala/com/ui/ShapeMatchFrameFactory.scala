@@ -19,7 +19,7 @@ object RealShapeMatchFrameFactory extends ShapeMatchFrameFactory {
 
         val levelOne = GameLevel(1)
 
-        val gameLogic = GameLogic(levelOne, DisplayShapes.getShapes(levelOne, displayWindow), displayWindow)
+        val gameLogic = GameLogic(levelOne, DisplayShapes.getShapesForLevel(levelOne, displayWindow), displayWindow)
 
         val frame = new ShapeMatchFrame(TestGame(uiElements, gameLogic), uiElements, timerThread)
 

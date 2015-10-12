@@ -13,7 +13,7 @@ object RandomNumberGenerator {
 
     def nextNNumbers(n: Int, range: Range): Seq[Int] = List.tabulate(n) { i => next(range) }
     
-    def nextNDistinct(n: Int, range: Range): Set[Int] = {
+    def nextNDistinctWithinRange(n: Int, range: Range): Set[Int] = {
 
         @tailrec
         def generate(n: Int, acc: Set[Int]): Set[Int] = {

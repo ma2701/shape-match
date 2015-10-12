@@ -28,7 +28,7 @@ class RandomNumberGeneratorTest extends FunSuite {
         val range = 1 to 10
         val n = 10
 
-        val randomNumbers = RandomNumberGenerator.nextNDistinct(n, range)
+        val randomNumbers = RandomNumberGenerator.nextNDistinctWithinRange(n, range)
 
         assert(n == randomNumbers.size)
 

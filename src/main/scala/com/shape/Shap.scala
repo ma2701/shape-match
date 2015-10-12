@@ -31,7 +31,7 @@ case class HollowSquare(location:Point = new Point) extends Shape(location) {
 case class SolidSquare(location:Point = new Point) extends Shape(location) {
     override def shapeImageName: String = "/solidSquare.png"
 
-    override def moveTo(loc: Point): Shape = HollowSquare(loc)
+    override def moveTo(loc: Point): Shape = SolidSquare(loc)
 }
 
 case class HollowCircle(location:Point = new Point) extends Shape(location) {

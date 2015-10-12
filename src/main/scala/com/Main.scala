@@ -1,13 +1,21 @@
 package com
 
-import com.ui.RealShapeMatchFrameFactory
+import com.ui.{ShapeMatchFrame, RealShapeMatchFrameFactory}
 
 object Main extends App {
 
     override def main(args: Array[String]): Unit = {
 
-        val game  = new Game(RealShapeMatchFrameFactory.construct)
+        val frame  = RealShapeMatchFrameFactory.construct
 
-        game.start
+        start(frame)
+    }
+
+    def start(smf: ShapeMatchFrame): Unit = {
+        java.awt.EventQueue.invokeLater(new Runnable {
+            def run {
+                smf.setVisible(true)
+            }
+        })
     }
 }

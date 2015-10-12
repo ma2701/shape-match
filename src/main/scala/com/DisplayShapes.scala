@@ -6,7 +6,7 @@ import DisplayGrid._
 
 object DisplayShapes {
 
-    def getShapes(currentLevel: GameLevel, displayWindow: DisplayWindow): DisplayShapesPair = {
+    def getShapesForLevel(currentLevel: GameLevel, displayWindow: DisplayWindow): DisplayShapesPair = {
         val shapes = ShapeSelector.select(currentLevel)
 
         val slots = getSlotIndicesToPutShapesIn(shapes)
@@ -18,6 +18,6 @@ object DisplayShapes {
     }
 
     def getSlotIndicesToPutShapesIn(shapes: Seq[Shape]): Set[Int] = {
-        RandomNumberGenerator.nextNDistinct(shapes.size, 0 to ((GRID_COL_CNT * GRID_ROW_CNT) - 1))
+        RandomNumberGenerator.nextNDistinctWithinRange(shapes.size, 0 to ((GRID_COL_CNT * GRID_ROW_CNT) - 1))
     }
 }
