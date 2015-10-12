@@ -1,5 +1,7 @@
 package com
 
+import com.DisplayShapes.getShapesForLevel
+
 object GameLogic {
     val REQUIRED_CORRECT_CONSECUTIVE_ANSWERES: Int = 2
 }
@@ -27,19 +29,22 @@ case class GameLogic(currentLevel: GameLevel = GameLevel(1),
 
     def isMatchingPairShapes = shapesPair.leftGrid.isEqual(shapesPair.rightGrid)
 
+    def reset: GameLogic = GameLogic( LevelOne.instance, getShapesForLevel(LevelOne.instance, displayWindow), displayWindow)
+
+
     private def gameLogicBasedOnUserSelection(shapesEquality: Boolean): GameLogic =
         if (shapesEquality) {
             val level = determineGameLevel
             val corrAnswers = determineCorrectAnswerCount(level)
             new GameLogic(level,
-                DisplayShapes.getShapesForLevel(level, displayWindow),
+                getShapesForLevel(level, displayWindow),
                 displayWindow,
                 corrAnswers,
                 score.add(level.points))
         } else {
             new GameLogic(
                 currentLevel,
-                DisplayShapes.getShapesForLevel(currentLevel, displayWindow),
+                getShapesForLevel(currentLevel, displayWindow),
                 displayWindow,
                 correctAnswers,
                 score.deduct(currentLevel.points))

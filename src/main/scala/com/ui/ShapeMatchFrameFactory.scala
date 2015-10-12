@@ -17,11 +17,13 @@ object RealShapeMatchFrameFactory extends ShapeMatchFrameFactory {
 
         val timerThread = new Thread(gameTimer)
 
-        val levelOne = GameLevel(1)
+        val levelOne = LevelOne.instance
 
         val gameLogic = GameLogic(levelOne, DisplayShapes.getShapesForLevel(levelOne, displayWindow), displayWindow)
 
-        val frame = new ShapeMatchFrame(TestGame(uiElements, gameLogic), uiElements, timerThread)
+        val frame = new ShapeMatchFrame(Game(uiElements, gameLogic, gameTimer),
+                                        uiElements,
+                                        timerThread)
 
         gameTimer.addTimerExpirySubscriber(frame)
 

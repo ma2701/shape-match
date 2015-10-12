@@ -11,7 +11,7 @@ object ShapeMatchFrame {
     val mainUIColor = new Color(0, 0, 0)
 }
 
-class ShapeMatchFrame(testGame: TestGame,
+class ShapeMatchFrame(testGame: Game,
                       uiElements: UIElements,
                       timerThread: Thread) extends JFrame with Runnable with ActionListener with TimerExpirySubscriber {
 

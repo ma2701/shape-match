@@ -5,7 +5,10 @@ import com.ui.panel.CountdownTimerPanel
 
 class GameTimer(val timerPanel: CountdownTimerPanel) extends Runnable {
 
-    private[this] var countDownClock = CountDownClock(minute=1, second = 30)
+    private val minutes: Int = 1
+    private val seconds: Int = 30
+
+    private[this] var countDownClock = CountDownClock(minute = minutes, second = seconds)
 
     private[this] val subscriberList = scala.collection.mutable.ListBuffer[TimerExpirySubscriber]()
 
@@ -21,11 +24,17 @@ class GameTimer(val timerPanel: CountdownTimerPanel) extends Runnable {
             if (countDownClock.hasExpired)
                 subscriberList.foreach(_.timerHasExpired)
 
-        } while (!countDownClock.hasExpired)
+        } while (true)
     }
 
     def addTimerExpirySubscriber(timerExpirySubscriber: TimerExpirySubscriber): Unit = {
         subscriberList += timerExpirySubscriber
+    }
+
+    def resetTimer: Unit = {
+        this.synchronized {
+            countDownClock = CountDownClock(minute = minutes, second = seconds)
+        }
     }
 
 }

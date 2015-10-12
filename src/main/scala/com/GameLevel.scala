@@ -1,5 +1,10 @@
 package com
 
+
+object LevelOne {
+    def instance = GameLevel(1)
+}
+
 case class GameLevel(shapeCount: Int) {
 
     def nextLevel: GameLevel =

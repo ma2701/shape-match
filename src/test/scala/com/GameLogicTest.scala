@@ -18,7 +18,7 @@ class GameLogicTest extends FunSuite with MockitoSugar {
     val shapes             = Seq(new HollowSquare, new HollowSquare)
     val nonMatchingShapes  = Seq(new HollowSquare, new HollowCircle())
 
-    val slots         = DisplayShapes.getSlotIndicesToPutShapesIn(shapes)
+    val slots              = DisplayShapes.getSlotIndicesToPutShapesIn(shapes)
 
     val matchingDisplayShapesPair = new DisplayShapesPair(leftGrid = new DisplayGrid(displayWindow, shapes, slots),
                                                   rightGrid = new DisplayGrid(displayWindow, shapes, slots))
@@ -100,6 +100,14 @@ class GameLogicTest extends FunSuite with MockitoSugar {
 
     test("given game logic when gameOver is called return new instance that returns new instance ") {
         assert(new GameLogic(GameLevel(1), matchingDisplayShapesPair, displayWindow).markGameAsFinished.isGameOver)
+    }
+
+    test("given game logic when reset is called then a new instance of game logic is returned with initial state") {
+        val newGame = new GameLogic(GameLevel(10), matchingDisplayShapesPair, displayWindow).reset
+
+        assert( 1 == newGame.currentLevel.shapeCount)
+        assert( 1 == newGame.shapesPair.leftGrid.shapesInGrid)
+        assert( 1 == newGame.shapesPair.rightGrid.shapesInGrid)
     }
 
     private def makeNConsecutiveCorrectGuess(n:Int, gameLogic: GameLogic): GameLogic = {

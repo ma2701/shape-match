@@ -1,9 +1,12 @@
 package com
 
+import java.awt.EventQueue
+
 import com.ui.UIElements
 
-case class TestGame (uiElements: UIElements,
-                    var gameLogic: GameLogic) {
+case class Game (uiElements: UIElements,
+                 var gameLogic: GameLogic,
+                 gameTimer: GameTimer ) {
 
     def updateUI:Unit = {
         uiElements.drawShapes(gameLogic.shapesPair.leftGrid,
@@ -19,15 +22,13 @@ case class TestGame (uiElements: UIElements,
     }
 
     def handleGameContinue:Unit = {
-        println("user has selected to continue game")
-        println("start a new game ( clear the boards...)")
-        println("start a new game reset the timer ..etc")
+        gameLogic = gameLogic.reset
+        uiElements.layeredPane.displayShapePanels
+        gameTimer.resetTimer
+        updateUI
     }
 
-    def handleGameQuit:Unit = {
-        println("user wants to quit the game ...")
-        println("easy peasy...")
-    }
+    def handleGameQuit:Unit = EventQueue.invokeLater( new ApplicationDeath)
 
     def handelTimerExpiry:Unit = {
         uiElements.layeredPane.uiElements.finalScorePanel.setFinalScore(gameLogic.score.points)

@@ -16,6 +16,7 @@ class LayeredPane extends JLayeredPane {
     initComponents
 
     def displayShapePanels: Unit = {
+        uiElements.finalScorePanel.setVisible(false)
         uiElements.rightShapePanel.setVisible(true)
         uiElements.leftShapePanel.setVisible(true)
     }
