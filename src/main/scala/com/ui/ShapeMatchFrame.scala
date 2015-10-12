@@ -11,16 +11,11 @@ object ShapeMatchFrame {
     val mainUIColor = new Color(0, 0, 0)
 }
 
-class ShapeMatchFrame(uiElements: UIElements,
-                      timerThread: Thread,
-                      gameTimer: GameTimer,
-                      logic: GameLogic) extends JFrame with Runnable with ActionListener with TimerExpirySubscriber {
+class ShapeMatchFrame(testGame: TestGame,
+                      uiElements: UIElements,
+                      timerThread: Thread) extends JFrame with Runnable with ActionListener with TimerExpirySubscriber {
 
     private[this] var gameThread: Thread = _
-
-    var gameLogic: GameLogic = logic
-
-    gameTimer.addTimerExpirySubscriber(this)
 
     initComponents
 
@@ -35,24 +30,16 @@ class ShapeMatchFrame(uiElements: UIElements,
 
     override def run(): Unit = mainGameLoop
 
-    private def mainGameLoop: Unit = {
+    private def mainGameLoop: Unit = testGame.updateUI
 
-        uiElements.layeredPane.uiElements.rightShapePanel.drawShapes(gameLogic.shapesPair.rightGrid)
+    override def actionPerformed(e: ActionEvent): Unit =
+        e.getActionCommand.toLowerCase match {
+            case "mismatch" | "match" => testGame.processUserInput(UserInput.fromString(e.getActionCommand))
+            case "continue" => testGame.handleGameContinue
+            case "quit"     => testGame.handleGameQuit
+            case _ => Unit
+        }
 
-        uiElements.layeredPane.uiElements.leftShapePanel.drawShapes(gameLogic.shapesPair.leftGrid)
-
-    }
-
-    override def actionPerformed(e: ActionEvent): Unit = {
-
-        val userInput = UserInput.fromString(e.getActionCommand)
-
-        gameLogic = gameLogic.evaluateUserInput(userInput).copy(displayWindow = uiElements.displayWindow)
-
-        uiElements.topPanel.setCurrentStats(gameLogic.currentLevel, gameLogic.score.points).updateGameLevelText
-
-        mainGameLoop
-    }
 
     private def initComponents: Unit = {
         setResizable(false)
@@ -68,12 +55,5 @@ class ShapeMatchFrame(uiElements: UIElements,
         pack()
     }
 
-    override def timerHasExpired: Unit = {
-        uiElements.layeredPane.uiElements.finalScorePanel.setFinalScore(gameLogic.score.points)
-        uiElements.layeredPane.displayFinalScore
-
-        gameLogic = gameLogic.markGameAsFinished
-
-        mainGameLoop
-    }
+    override def timerHasExpired: Unit = testGame.handelTimerExpiry
 }

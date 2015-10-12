@@ -11,11 +11,6 @@ class GameTest extends FunSuite with MockitoSugar {
         val game = new Game(createAGameFrame)
     }
 
-    test("given a Game instance then isGameOver returns true when game is over") {
-        assert(new Game(createAGameFrame).isGameOver)
-    }
-
-
     private def createAGameFrame:ShapeMatchFrame = {
         val mockShapeMatchFrame = mock[ShapeMatchFrame]
 

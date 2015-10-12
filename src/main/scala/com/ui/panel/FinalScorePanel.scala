@@ -8,18 +8,15 @@ import com.{ApplicationDeath, UserInput}
 import com.ui.ShapeMatchFrame
 import org.jdesktop.layout.GroupLayout
 
-class FinalScorePanel extends JPanel with ActionListener {
+class FinalScorePanel extends JPanel {
     private[this] var finalScore: Option[Int] = None
     private lazy val finalScoreLocation = new Point((getWidth/2)-62, 30)
 
     private[this] val fontSize               = 16
     private[this] val font                   = new Font("TimesRoman", Font.BOLD, fontSize)
     private[this] val statsTextColour        = ShapeMatchFrame.mainUIColor
-    private [this] val continueButton        = new javax.swing.JButton()
-    private [this] val quitButton            = new javax.swing.JButton()
-
-    continueButton.addActionListener(this);
-    quitButton.addActionListener(this);
+    private[this] val continueButton        = new javax.swing.JButton()
+    private[this] val quitButton            = new javax.swing.JButton()
 
     initComponents
 
@@ -68,10 +65,8 @@ class FinalScorePanel extends JPanel with ActionListener {
         )
     }
 
-    override def actionPerformed(e: ActionEvent): Unit = {
-        e.getActionCommand match {
-            case "Continue" => EventQueue.invokeLater(new ApplicationDeath)
-            case "Quit"     => EventQueue.invokeLater(new ApplicationDeath)
-        }
+    def addMainGameFrameAsActionListener(shapeMatchFrame: ShapeMatchFrame): Unit = {
+        continueButton.addActionListener(shapeMatchFrame)
+        quitButton.addActionListener(shapeMatchFrame)
     }
 }

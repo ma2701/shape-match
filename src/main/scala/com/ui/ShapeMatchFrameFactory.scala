@@ -1,6 +1,6 @@
 package com.ui
 
-import com.{DisplayShapes, GameLogic, GameLevel, GameTimer}
+import com._
 
 trait ShapeMatchFrameFactory {
     def construct: ShapeMatchFrame
@@ -21,10 +21,13 @@ object RealShapeMatchFrameFactory extends ShapeMatchFrameFactory {
 
         val gameLogic = GameLogic(levelOne, DisplayShapes.getShapes(levelOne, displayWindow), displayWindow)
 
-        val frame = new ShapeMatchFrame(uiElements, timerThread, gameTimer, gameLogic)
+        val frame = new ShapeMatchFrame(TestGame(uiElements, gameLogic), uiElements, timerThread)
+
+        gameTimer.addTimerExpirySubscriber(frame)
 
         uiElements.matchButton.addActionListener(frame)
         uiElements.mismatchButton.addActionListener(frame)
+        uiElements.addMainFrameAsActionListener(frame)
 
         return frame
     }

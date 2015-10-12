@@ -3,10 +3,9 @@ package com.ui
 import java.awt.Color._
 import java.awt.event.ActionListener
 import java.awt.{Dimension, Font}
-import javax.swing.JButton
 
-import com.DisplayWindow
 import com.ui.panel.{LayeredPane, TopPanel}
+import com.{DisplayGrid, DisplayWindow}
 
 object UIElements {
     val buttonFont = new Font("Arial", 1, 15)
@@ -29,12 +28,19 @@ case class UIElements(matchButton: Button,
     def displayWindow : DisplayWindow =
         new DisplayWindow(new Dimension(layeredPane.uiElements.leftShapePanel.getWidth, layeredPane.uiElements.leftShapePanel.getHeight))
 
-    def addMatchActionListener(actionListener:ActionListener):Unit = {
+    def addMatchActionListener(actionListener:ActionListener):Unit =
         matchButton.actionListener(actionListener)
-    }
-    
-    def addMismatchActionListener(actionListener:ActionListener):Unit = {
-        mismatchButton.actionListener(actionListener)
-    }
 
+    def addMismatchActionListener(actionListener:ActionListener):Unit =
+        mismatchButton.actionListener(actionListener)
+
+    def addMainFrameAsActionListener(shapeMatchFrame: ShapeMatchFrame) : Unit  =
+        layeredPane.addMainFrameAsActionListener(shapeMatchFrame)
+
+    def drawShapes(leftGrid: DisplayGrid, rightGrid:DisplayGrid):Unit = {
+
+        layeredPane.drawShapeInLeftShapePanel(leftGrid)
+
+        layeredPane.drawShapeInRightShapePanel(rightGrid)
+    }
 }

@@ -3,7 +3,8 @@ package com.ui.panel
 import java.awt.Color
 import javax.swing._
 
-import com.ui.{GameLayoutUtility, LayeredPaneElements}
+import com.DisplayGrid
+import com.ui.{GameLayoutUtility, LayeredPaneElements, ShapeMatchFrame}
 import org.jdesktop.layout.GroupLayout
 
 class LayeredPane extends JLayeredPane {
@@ -14,17 +15,27 @@ class LayeredPane extends JLayeredPane {
 
     initComponents
 
-    def displayShapePanels:Unit = {
+    def displayShapePanels: Unit = {
         uiElements.rightShapePanel.setVisible(true)
         uiElements.leftShapePanel.setVisible(true)
     }
 
-     def displayFinalScore:Unit = {
-         uiElements.leftShapePanel.setVisible(false)
-         uiElements.rightShapePanel.setVisible(false)
-         uiElements.finalScorePanel.setVisible(true)
-     }
+    def displayFinalScore: Unit = {
+        uiElements.leftShapePanel.setVisible(false)
+        uiElements.rightShapePanel.setVisible(false)
+        uiElements.finalScorePanel.setVisible(true)
+    }
 
+    def drawShapeInRightShapePanel(disGrid: DisplayGrid): Unit = {
+        uiElements.rightShapePanel.drawShapes(disGrid)
+    }
+
+    def drawShapeInLeftShapePanel(disGrid: DisplayGrid): Unit = {
+        uiElements.leftShapePanel.drawShapes(disGrid)
+    }
+
+    def addMainFrameAsActionListener(shapeMatchFrame: ShapeMatchFrame): Unit =
+        uiElements.finalScorePanel.addMainGameFrameAsActionListener(shapeMatchFrame)
 
     private def initComponents: Unit = {
         setBackground(Color.RED)
