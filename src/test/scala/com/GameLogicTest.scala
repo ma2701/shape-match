@@ -2,10 +2,10 @@ package com
 
 import java.awt.Dimension
 
-import com.shape.{HollowCircle, HollowSquare}
+import com.GameLogic.REQUIRED_CORRECT_CONSECUTIVE_ANSWERES
+import com.shape.{DisplayShapes, DisplayShapesPair, HollowCircle, HollowSquare}
 import org.scalatest.FunSuite
 import org.scalatest.mock.MockitoSugar
-import GameLogic.REQUIRED_CORRECT_CONSECUTIVE_ANSWERES
 
 class GameLogicTest extends FunSuite with MockitoSugar {
 

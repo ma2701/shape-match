@@ -3,7 +3,7 @@ package com
 import java.awt.{Dimension, Point}
 
 import com.DisplayGrid._
-import com.shape.HollowSquare
+import com.shape.{DisplayShapes, HollowSquare}
 import org.scalatest.FunSuite
 
 class DisplayGridTest extends FunSuite {

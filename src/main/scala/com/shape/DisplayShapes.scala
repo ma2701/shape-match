@@ -1,8 +1,8 @@
-package com
+package com.shape
 
-import com.shape.{ShapeSelector, Shape}
-import com.util.random.{RandomBoolean, RandomNumberGenerator}
-import DisplayGrid._
+import com.DisplayGrid._
+import com.util.random.RandomNumberGenerator
+import com.{DisplayGrid, DisplayWindow, GameLevel}
 
 object DisplayShapes {
 

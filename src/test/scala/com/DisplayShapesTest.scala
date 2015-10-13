@@ -2,6 +2,7 @@ package com
 
 import java.awt.Dimension
 
+import com.shape.DisplayShapes
 import org.scalatest.FunSuite
 
 class DisplayShapesTest extends FunSuite {

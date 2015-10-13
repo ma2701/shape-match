@@ -1,6 +1,7 @@
 package com.ui
 
 import com._
+import com.shape.DisplayShapes
 
 trait ShapeMatchFrameFactory {
     def construct: ShapeMatchFrame

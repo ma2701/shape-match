@@ -1,6 +1,7 @@
 package com
 
-import com.DisplayShapes.getShapesForLevel
+import com.shape.DisplayShapes.getShapesForLevel
+import com.shape.{DisplayShapes, DisplayShapesPair}
 
 object GameLogic {
     val REQUIRED_CORRECT_CONSECUTIVE_ANSWERES: Int = 2

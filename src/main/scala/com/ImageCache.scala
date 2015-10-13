@@ -14,10 +14,9 @@ class ImageCache {
             case None    =>
                 def loadedImage = Try {
                     ImageIO.read(getClass.getResourceAsStream(fileName))
-                }.map {
-                    bi =>
-                        cache += (fileName -> bi)
-                        bi
+                }.map { bufferedImage =>
+                    cache += (fileName -> bufferedImage)
+                    bufferedImage
                 }
 
                 loadedImage.toOption
