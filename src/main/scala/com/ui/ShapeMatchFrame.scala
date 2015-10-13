@@ -37,7 +37,7 @@ class ShapeMatchFrame(testGame: Game,
             case "mismatch" | "match" => testGame.processUserInput(UserInput.fromString(e.getActionCommand))
             case "continue" => testGame.handleGameContinue
             case "quit"     => testGame.handleGameQuit
-            case _ => Unit
+            case _          => Unit
         }
 
 

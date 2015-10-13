@@ -4,11 +4,11 @@ import java.awt.EventQueue
 
 import com.ui.UIElements
 
-case class Game (uiElements: UIElements,
-                 var gameLogic: GameLogic,
-                 gameTimer: GameTimer ) {
+case class Game(uiElements: UIElements,
+                var gameLogic: GameLogic,
+                gameTimer: GameTimer) {
 
-    def updateUI:Unit = {
+    def updateUI: Unit = {
         uiElements.drawShapes(gameLogic.shapesPair.leftGrid,
             gameLogic.shapesPair.rightGrid)
     }
@@ -21,16 +21,16 @@ case class Game (uiElements: UIElements,
         updateUI
     }
 
-    def handleGameContinue:Unit = {
+    def handleGameContinue: Unit = {
         gameLogic = gameLogic.reset
         uiElements.layeredPane.displayShapePanels
         gameTimer.resetTimer
         updateUI
     }
 
-    def handleGameQuit:Unit = EventQueue.invokeLater( new ApplicationDeath)
+    def handleGameQuit: Unit = EventQueue.invokeLater(new ApplicationDeath)
 
-    def handelTimerExpiry:Unit = {
+    def handelTimerExpiry: Unit = {
         uiElements.layeredPane.uiElements.finalScorePanel.setFinalScore(gameLogic.score.points)
         uiElements.layeredPane.displayFinalScore
 

@@ -29,7 +29,7 @@ object RealShapeMatchFrameFactory extends ShapeMatchFrameFactory {
 
         uiElements.matchButton.addActionListener(frame)
         uiElements.mismatchButton.addActionListener(frame)
-        uiElements.addMainFrameAsActionListener(frame)
+        uiElements.addMainFrameAsActionListenerToLayeredPane(frame)
 
         return frame
     }

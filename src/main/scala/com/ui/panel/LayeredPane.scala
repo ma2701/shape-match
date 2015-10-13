@@ -27,11 +27,11 @@ class LayeredPane extends JLayeredPane {
         uiElements.finalScorePanel.setVisible(true)
     }
 
-    def drawShapeInRightShapePanel(disGrid: DisplayGrid): Unit = {
+    def drawShapeInRightPanel(disGrid: DisplayGrid): Unit = {
         uiElements.rightShapePanel.drawShapes(disGrid)
     }
-
-    def drawShapeInLeftShapePanel(disGrid: DisplayGrid): Unit = {
+    
+    def drawShapeInLeftPanel(disGrid: DisplayGrid): Unit = {
         uiElements.leftShapePanel.drawShapes(disGrid)
     }
 

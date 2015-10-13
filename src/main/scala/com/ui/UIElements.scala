@@ -34,13 +34,13 @@ case class UIElements(matchButton: Button,
     def addMismatchActionListener(actionListener:ActionListener):Unit =
         mismatchButton.actionListener(actionListener)
 
-    def addMainFrameAsActionListener(shapeMatchFrame: ShapeMatchFrame) : Unit  =
+    def addMainFrameAsActionListenerToLayeredPane(shapeMatchFrame: ShapeMatchFrame) : Unit  =
         layeredPane.addMainFrameAsActionListener(shapeMatchFrame)
 
     def drawShapes(leftGrid: DisplayGrid, rightGrid:DisplayGrid):Unit = {
 
-        layeredPane.drawShapeInLeftShapePanel(leftGrid)
+        layeredPane.drawShapeInLeftPanel(leftGrid)
 
-        layeredPane.drawShapeInRightShapePanel(rightGrid)
+        layeredPane.drawShapeInRightPanel(rightGrid)
     }
 }
