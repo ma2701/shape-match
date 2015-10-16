@@ -12,7 +12,7 @@ class GameTimer(val timerPanel: CountdownTimerPanel) extends Runnable {
 
     private[this] val subscriberList = scala.collection.mutable.ListBuffer[TimerExpirySubscriber]()
 
-    override def run(): Unit = {
+    override def run(): Unit =
         do {
 
             Thread.sleep(1000)
@@ -25,7 +25,6 @@ class GameTimer(val timerPanel: CountdownTimerPanel) extends Runnable {
                 subscriberList.foreach(_.timerHasExpired)
 
         } while (true)
-    }
 
     def addTimerExpirySubscriber(timerExpirySubscriber: TimerExpirySubscriber): Unit = {
         subscriberList += timerExpirySubscriber
