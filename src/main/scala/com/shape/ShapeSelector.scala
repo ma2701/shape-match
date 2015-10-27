@@ -22,8 +22,7 @@ object ShapeSelector {
     def select(level: GameLevel): Seq[Shape] =
         RandomNumberGenerator.nextNNumbers(level.shapeCount, shapes.indices).map(shapes(_))
 
-   def selectOneRandomShape: Shape =
-       shapes(
-           RandomNumberGenerator.next(0 to (shapes.size-1))
-       )
-    }
+    def selectOneRandomShape: Shape =
+        shapes(
+            RandomNumberGenerator.next(0 to (shapes.size - 1)))
+}

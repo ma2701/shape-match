@@ -6,7 +6,7 @@ import com.ui.panel._
 object LayeredPaneElements {
 
     def default: LayeredPaneElements =
-        LayeredPaneElements (
+        LayeredPaneElements(
             rightShapePanel = new RightShapePanel,
             leftShapePanel = new LeftShapePanel,
             gameStartPanel = new GameStartPanel,

@@ -11,9 +11,12 @@ object ShapeMatchFrame {
     val mainUIColor = new Color(0, 0, 0)
 }
 
-class ShapeMatchFrame(testGame: Game,
+class ShapeMatchFrame(game: Game,
                       uiElements: UIElements,
-                      timerThread: Thread) extends JFrame with Runnable with ActionListener with TimerExpirySubscriber {
+                      timerThread: Thread) extends JFrame
+                                           with Runnable
+                                           with ActionListener
+                                           with TimerExpirySubscriber {
 
     private[this] var gameThread: Thread = _
 
@@ -30,14 +33,18 @@ class ShapeMatchFrame(testGame: Game,
 
     override def run(): Unit = mainGameLoop
 
-    private def mainGameLoop: Unit = testGame.updateUI
+    private def mainGameLoop: Unit = game.updateUI
 
     override def actionPerformed(e: ActionEvent): Unit =
         e.getActionCommand.toLowerCase match {
-            case "mismatch" | "match" => testGame.processUserInput(UserInput.fromString(e.getActionCommand))
-            case "continue" => testGame.handleGameContinue
-            case "quit"     => testGame.handleGameQuit
-            case _          => Unit
+            case "mismatch" | "match" =>
+                game.processUserInput(UserInput.fromString(e.getActionCommand))
+            case "continue" =>
+                game.handleGameContinue
+            case "quit" =>
+                game.handleGameQuit
+            case _ =>
+                Unit
         }
 
 
@@ -55,5 +62,5 @@ class ShapeMatchFrame(testGame: Game,
         pack()
     }
 
-    override def timerHasExpired: Unit = testGame.handelTimerExpiry
+    override def timerHasExpired: Unit = game.handelTimerExpiry
 }

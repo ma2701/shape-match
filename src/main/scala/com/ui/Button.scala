@@ -11,7 +11,7 @@ class Button(bgColor: Color, fgColor: Color, font: Font, text: String) extends J
     setForeground(fgColor)
     setText(text)
 
-    def actionListener(actionListener:ActionListener ): Unit = {
+    def actionListener(actionListener: ActionListener): Unit = {
         addActionListener(actionListener)
     }
 
