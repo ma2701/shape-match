@@ -32,4 +32,8 @@ class CountDownClockTest extends FunSuite {
     test("given current time 0:0 then we are out of time") {
         assert(new CountDownClock(0, 1).tick.hasExpired)
     }
+
+    test("given time 1:10 then once tick will display 01:09") {
+        assert("01:09" == new CountDownClock(1, 10).tick.toString)
+    }
 }

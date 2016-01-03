@@ -21,5 +21,5 @@ case class CountDownClock(minute: Int, second: Int) {
 
     def hasExpired: Boolean = this == CountDownClock(0, 0)
 
-    override def toString: String = s"${minute}:${second}"
+    override def toString: String = String.format("%02d:%02d", minute.asInstanceOf[Integer], second.asInstanceOf[Integer])
 }
