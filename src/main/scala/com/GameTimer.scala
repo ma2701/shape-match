@@ -6,7 +6,7 @@ import com.ui.panel.CountdownTimerPanel
 class GameTimer(val timerPanel: CountdownTimerPanel) extends Runnable {
 
     private val minutes: Int = 1
-    private val seconds: Int = 30
+    private val seconds: Int = 0
 
     private[this] var countDownClock = CountDownClock(minute = minutes, second = seconds)
 
